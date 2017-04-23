@@ -16,7 +16,7 @@ class RoleController {
 
 	* store(request, response){
 		const roleData = request.except('_csrf','submit')
-		const validation = yield Validator.validation(roleData, role.rules)
+		const validation = yield Validator.validate(roleData, Role.rules)
 		if (validation.fails()){
 			yield request
 				.withOnly('name') 
@@ -25,7 +25,7 @@ class RoleController {
 			response.redirect('role/create')
 			return
 		}
-		yield role.create(roleData)
+		yield Role.create(roleData)
 		yield response.sendView('role/create', {successMessage: 'Created role Successfully'})
 
 	}
