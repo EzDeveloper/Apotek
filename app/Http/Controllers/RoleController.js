@@ -5,11 +5,6 @@ const Validator = use('Validator')
 
 class RoleController {
 
-	* index(request, response){
-		 const roles = yield Role.all()
-		 yield response.sendView('role/index', {roles:roles.toJSON()})
-	}
-
 	* create(request, response){
 		yield response.sendView('role/create')
 	}
