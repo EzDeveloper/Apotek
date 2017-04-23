@@ -1,0 +1,63 @@
+{% extends 'base' %}
+
+{% block navBarRole%}
+    <div class="navbar-brand" >
+        Admin
+    </div>
+{% endblock %}
+
+{% block navSideBarList%}
+     <li>
+        <a href="index.html"><i class="fa fa-fw fa-group"></i> Users</a>
+    </li>
+    <li class="active">
+        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Role</a>
+    </li>
+    <li>
+        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Sales Report</a>
+    </li>
+    <li>
+        <a href="index-rtl.html"><i class="fa fa-fw fa-medkit"></i> Medicine Stocks</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Role</h3>
+            </div>
+
+            <div class="panel-body">                                   
+                 <div class="col-lg-6">
+                    {{ form.open({route: 'role.create'}) }}
+                        {{ form.button('Create','', { class: 'btn btn-success', style: 'margin-bottom: 20px'}) }}
+                    {{ form.close() }}
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>Role</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for role in roles %}
+                                    <tr>
+                                        <td>{{role.id}}</td>
+                                        <td>{{role.name}}</td>
+                                        <td><a href="role/{{role.id}}">View</a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                          
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

@@ -21,5 +21,5 @@ Route.on('/').render('welcome')
 
 Route.resource('customer','CustomerController')
 Route.resource('role','RoleController')
-Route.on('/admin').render('admin');
-Route.on('/admin_users').render('users');
+Route.on('/admin').render('base');
+Route.on('/admin_users').render('admin/admin');

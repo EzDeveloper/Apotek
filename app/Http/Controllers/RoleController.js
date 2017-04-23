@@ -1,6 +1,6 @@
 'use strict'
 
-const Role = user('App/Model/Role')
+const Role = use('App/Model/Role')
 const Validator = use('Validator')
 
 class RoleController {
