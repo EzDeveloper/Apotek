@@ -1,0 +1,120 @@
+{% extends 'base' %}
+
+{% block navBarRole%}
+    <div class="navbar-brand" >
+        Admin
+    </div>
+{% endblock %}
+
+{% block navSideBarList%}
+    <li class="active">
+       {{ linkToAction('UserController.index', '<i class="fa fa-fw fa-group"></i> User') }} 
+    </li>
+    <li>
+        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-wrench"></i> Role') }} 
+    </li>
+    <li>
+        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-file"></i> Medicine Stock') }} 
+    </li>
+    <li>
+        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-medkit"></i> Sales Report') }} 
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class = "col-lg-12">
+        {% if successMessage %}
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="Close">&times;</a>
+                <strong>Success!</strong> {{successMessage}}.
+            </div>
+        {% endif %}
+
+        {% if old('errors') %}
+            <div class="alert alert-danger alert-dismissable">
+                {% for error in old('errors') %}
+                    <a href="#" class="close" data-dismiss="alert" aria-label="Close">&times;</a>
+                    <li> {{ error.message }} </li>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Create User</h3>
+            </div>
+
+            <div class="panel-body">                                   
+                 {{ form.open({route: 'user.store'}, params:{user.id}) }}
+
+                    {{csrfField}}
+
+                    <div class = "col-lg-12">
+                        <div class="form-group ">
+                            {{form.label('name','Name') }}
+                            <div>
+                                {{ form.text('name','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        <div class="form-group "> 
+                            {{form.label('birth_date','Birth Date') }}
+                            <div>
+                                {{ form.date('birth_date','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        <div class="form-group "> 
+                            {{form.label('address','Address') }}
+                            <div>
+                                {{ form.text('address','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        <div class="form-group "> 
+                            {{form.label('phone','Phone') }}
+                            <div>
+                                {{ form.text('phone','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        <div class="form-group "> 
+                            {{form.label('role_id','Role') }}
+                            <div>
+                                {{ form.text('role_id','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        <div class="form-group "> 
+                            {{form.label('email','E-Mail') }}
+                            <div>
+                                {{ form.email('email','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        <div class="form-group "> 
+                            {{form.label('password','Password') }}
+                            <div>
+                                {{ form.text('password','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        
+
+                        {{ form.submit('Create','submit', { class: 'btn btn-success', style: 'margin-top: 20px'}) }}
+
+                    </div>    
+
+                {{ form.close() }}  
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

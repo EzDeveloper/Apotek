@@ -25,13 +25,13 @@ class UserController {
       response.redirect('user/create')
       return
     }
-    yield user.create(userData)
+    yield User.create(userData)
     yield response.sendView('user/create', {successMessage: 'Created User Successfully'})
 
   }
 
   * show(request,response){
-    const user = yield User.findBy('id',request.paran('id'))
+    const user = yield User.findBy('id',request.param('id'))
     yield response.sendView('user/show',{user:user.toJSON()})
   }
 
@@ -54,9 +54,12 @@ class UserController {
       return
     }
 
-    const user = yield user.findBy('id', userId)
+    const user = yield User.findBy('id', userId)
     user.name = userData.name
-    user.
+    user.birth_date = userData.birth_date
+    user.address = userData.address
+    user.phone = userData.phone
+    user.role_id = userData.role_id
     yield user.save()
     yield response.redirect(userId)
   }

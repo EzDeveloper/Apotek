@@ -25,7 +25,7 @@ class User extends Lucid {
       name: 'required|max:100',
       birth_date: 'required|date',
       address: 'required|max:100',
-      phone: 'required|integer|above:0',
+      phone: 'required|above:0',
       role_id: 'required|above:0'
     }
   }
@@ -34,8 +34,8 @@ class User extends Lucid {
     return {
       name: 'required|max:100',
       birth_date: 'required|date',
-      address: 'required|alpha_numeric|max:100',
-      phone: 'required|integer|above:0',
+      address: 'required|max:100',
+      phone: 'required|above:0',
       role_id: 'required|above:0'
     }
   }
