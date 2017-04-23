@@ -8,6 +8,10 @@ class Role extends Lucid {
       		name: 'required|unique:roles,name|max:40'
       	}
     }
+
+    user () {
+    	return this.hasMany('App/Model/User')
+  	}
 }
 
 module.exports = Role
