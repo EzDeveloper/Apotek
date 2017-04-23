@@ -1,0 +1,80 @@
+{% extends 'admin' %}
+
+{% block navBarRole%}
+    <a class="navbar-brand" href="index.html">
+        admin
+    </a>
+{% endblock %}
+
+{% block navSideBarList%}
+     <li class="active">
+        <a href="index.html"><i class="fa fa-fw fa-group"></i> Users</a>
+    </li>
+    <li>
+        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Create User</a>
+    </li>
+    <li>
+        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Create Role</a>
+    </li>
+    <li>
+        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Sales Report</a>
+    </li>
+    <li>
+        <a href="index-rtl.html"><i class="fa fa-fw fa-medkit"></i> Medicine Stock</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Users Table</h3>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Phone Number</th>
+                            <th>Address</th>
+                            <th>Role</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>3327</td>
+                            <td>Irvan Wijaya</td>
+                            <td>100</td>
+                            <td>089655550396123123</td>
+                            <td>Rs. boromeus kamar 27</td>
+                            <td>Pembantu</td>
+                            <td><a href="showuser.html">view</a></td>
+                        </tr>
+                        <tr>
+                            <td>3328</td>
+                            <td>Thoby Gabriel</td>
+                            <td>23</td>
+                            <td>0896555503912312</td>
+                            <td>jembatan layang no 3</td>
+                            <td>Cashier</td>
+                            <td><a href="showuser.html">view</a></td>
+                        </tr>
+                        <tr>
+                            <td>3329</td>
+                            <td>Matthew Ariel</td>
+                            <td>20</td>
+                            <td>089655550396</td>
+                            <td>ciliwung no. 2</td>
+                            <td>Admin</td>
+                            <td><a href="showuser.html">view</a></td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
