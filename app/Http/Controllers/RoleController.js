@@ -31,7 +31,7 @@ class RoleController {
 	}
 
 	* show(request,response){
-		const role = yield Role.findBy('id',request.paran('id)'))
+		const role = yield Role.findBy('id',request.param('id'))
 		yield response.sendView('role/show',{role:role.toJSON()})
 	}
 
@@ -43,7 +43,7 @@ class RoleController {
 	* update(request,response){
 		const roleId = request.param('id')
 		const roleData = request.except('_csrf','submit')
-		const validation = yield Validator.validate(roleData, role.updateRules(roleId))
+		const validation = yield Validator.validate(roleData, Role.updateRules(roleId))
 	
 		if(validation.fails()){
 			yield request
