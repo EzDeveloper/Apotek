@@ -7,7 +7,7 @@ class CustomerController {
 
 	* index(request, response){
 		 const customers = yield Customer.all()
-		 yield response.sendView('customer/index', {customers: customers:toJSON()})
+		 yield response.sendView('customer/index', {customers: customers.toJSON()})
 	}
 
 	* create(request, response){
