@@ -11,7 +11,7 @@ class CustomersTableSchema extends Schema {
       table.string('name',100).notNullable()
       table.date('birth_date').notNullable()
       table.string('address',200)
-      table.string('phone')
+      table.integer('phone',20).unsigned()
       table.boolean('kis').notNullable()
     })
   }

@@ -1,17 +1,20 @@
 'use strict'
 
 const User = use('App/Model/User')
+const Role = use('App/Model/Role')
 const Validator = use('Validator')
 
 class UserController {
 
   * index(request, response){
-     const users = yield User.all()
+     const users = yield User.query().with('role').fetch()
      yield response.sendView('user/index', {users:users.toJSON()})
+     //console.log(users.toJSON())
   }
 
   * create(request, response){
-    yield response.sendView('user/create')
+    const roles = yield Role.all()
+    yield response.sendView('user/create', {roles:roles.toJSON()})
   }
 
   * store(request, response){
@@ -31,13 +34,14 @@ class UserController {
   }
 
   * show(request,response){
-    const user = yield User.findBy('id',request.param('id'))
-    yield response.sendView('user/show',{user:user.toJSON()})
+    const user = yield User.query().where('id',request.param('id')).with('role').fetch()
+    yield response.sendView('user/show', {user:user.toJSON()})
   }
 
   * edit(request,response){
-    const user = yield User.findBy('id',request.param('id'))
-    yield response.sendView('user/edit', {user:user.toJSON()})
+    const user = yield User.query().where('id',request.param('id')).with('role').fetch()
+    const roles = yield Role.all()
+    yield response.sendView('user/edit', {user:user.toJSON(), roles:roles.toJSON()})
   }
 
   * update(request,response){
