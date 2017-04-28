@@ -8,7 +8,7 @@ class Customer extends Lucid {
 			name: 'required|max:100',
 			birth_date: 'required|date',
 			address: 'require|max:200',
-			phone: 'max:20|above:0',
+			phone: 'max:15|above:0',
 			kis: 'required'
 		}
 	}
