@@ -12,8 +12,8 @@ class UsersTableSchema extends Schema {
       table.string('name',100).notNullable()
       table.date('birth_date').notNullable()
       table.string('address',100).notNullable()
-      table.integer('phone').unsigned().notNullable()
-      table.integer('role_id').unsigned().references('id').inTable('roles').notNullable()
+      table.integer('phone',15).unsigned().notNullable()
+      table.integer('role_id').notNullable().unsigned().references('id').inTable('roles')
       table.timestamps()
     })
   }

@@ -6,9 +6,9 @@ class Customer extends Lucid {
 	static get rules(){
 		return {
 			name: 'required|max:100',
-			birth_date: 'required',
-			address: 'required|max:200',
-			phone: 'required|max:15|'
+			birth_date: 'required|date',
+			address: 'require|max:200',
+			phone: 'max:15|above:0',
 			kis: 'required'
 		}
 	}

@@ -9,8 +9,8 @@ class IngredientsTableSchema extends Schema {
       table.increments()
       table.timestamps()
       table.integer('stock_id').notNullable().unsigned().references('id').inTable('stocks')
-      table.integer('amount').notNullable().unsigned()
-      table.integer('price').notNullable().unsigned()
+      table.integer('amount').unsigned().notNullable()
+      table.integer('price').unsigned().notNullable()
     })
   }
 
