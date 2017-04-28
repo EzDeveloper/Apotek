@@ -13,7 +13,7 @@ class UsersTableSchema extends Schema {
       table.date('birth_date').notNullable()
       table.string('address',100).notNullable()
       table.integer('phone').unsigned().notNullable()
-      table.integer('role_id').unsigned().references('id').inTable('roles')
+      table.integer('role_id').unsigned().references('id').inTable('roles').notNullable()
       table.timestamps()
     })
   }

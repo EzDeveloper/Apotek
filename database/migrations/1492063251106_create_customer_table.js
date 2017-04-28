@@ -10,8 +10,8 @@ class CustomersTableSchema extends Schema {
       table.timestamps()
       table.string('name',100).notNullable()
       table.date('birth_date').notNullable()
-      table.string('address',200)
-      table.string('phone')
+      table.string('address',200).notNullable()
+      table.integer('phone', 15).notNullable().unsigned()
       table.boolean('kis').notNullable()
     })
   }
