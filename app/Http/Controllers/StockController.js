@@ -5,34 +5,35 @@ const Validator = use('Validator')
 
 class StockController {
 
-	* increaseAmount (request, response){
+	* addAmount(request, response){
 		const stockData = request.only('added_amount')
+		const stockId = request.param('id')
 		const rules = {
 			added_amount: 'required|above:0'
 		}
-		const validation = yield Validator.validate(added_amount, rules)
+		const validation = yield Validator.validate(stockData,rules)//, rules)
 		if (validation.fails()){
 			yield request
-				.withOnly('id','added_amount') 
+				.withOnly('added_amount') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('/stock/'+stockData.id+'/add')
+			response.redirect('/stock/'+stockId+'/add')
 			return
 		}
-		const stock = yield Stock.findBy('id',request.param('id'))
+		const stock = yield Stock.findBy('id',stockId)
 		stock.storage_amount = stock.storage_amount+added_amount
 		yield stock.save()
 		response.redirect('/stock')
 	} 
 
-	* add(request, response){
+	* addAmountPage(request, response){
 		const stock = yield Stock.findBy('id',request.param('id'))
 		yield response.sendView('stock/add',{stock:stock.toJSON()})
 	}
 
 	* index(request, response){
-		const stocks = yield Stock.query().orderBy('name','asc').fetch()
-		yield response.sendView('stock/index', {stocks: stocks.toJSON()})
+		 const stocks = yield Stock.query().orderBy('name','asc').fetch()
+		 yield response.sendView('stock/index', {stocks: stocks.toJSON()})
 	}
 
 	* create(request, response){
