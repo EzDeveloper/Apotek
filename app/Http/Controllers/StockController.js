@@ -5,13 +5,13 @@ const Validator = use('Validator')
 
 class StockController {
 
-	* addAmount(request, response){
-		const stockData = request.only('added_amount')
+	* increase(request, response){
+		const added_amount = request.only('added_amount')
 		const stockId = request.param('id')
 		const rules = {
 			added_amount: 'required|above:0'
 		}
-		const validation = yield Validator.validate(stockData,rules)//, rules)
+		const validation = yield Validator.validate(added_amount,rules)//, rules)
 		if (validation.fails()){
 			yield request
 				.withOnly('added_amount') 
@@ -21,12 +21,14 @@ class StockController {
 			return
 		}
 		const stock = yield Stock.findBy('id',stockId)
-		stock.storage_amount = stock.storage_amount+added_amount
+		stock.storage_amount = (stock.storage_amount+added_amount)
+		//console.log((stock.storage_amount+added_amount).toJSON())
+		//console.log(stock.storage_amount.toJSON())
 		yield stock.save()
 		response.redirect('/stock')
 	} 
 
-	* addAmountPage(request, response){
+	* add(request, response){
 		const stock = yield Stock.findBy('id',request.param('id'))
 		yield response.sendView('stock/add',{stock:stock.toJSON()})
 	}
