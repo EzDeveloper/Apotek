@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Phone</label>
                                     <div class="col-sm-10">
-                                        {{ form.text('phone',  user[0].phone  , { class: 'form-control'}) }}
+                                        <input type="number" name="phone" value={{user[0].phone}} class="form-control">
                                     </div>
                                 </div>
                             </div>    
