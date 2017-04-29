@@ -19,7 +19,8 @@ const Route = use('Route')
 
 Route.on('/').render('login')
 
-Route.resource('customer','CustomerController')
-Route.resource('user','UserController')
-Route.resource('role','RoleController')
+Route.resource('customer','CustomerController');
+Route.resource('user','UserController');
+Route.resource('role','RoleController');
+Route.resource('stock','StockController');
 Route.on('/admin').render('base');

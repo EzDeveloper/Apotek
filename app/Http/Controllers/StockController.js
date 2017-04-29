@@ -32,12 +32,12 @@ class StockController {
 
 	* show(request,response){
 		const stock = yield Stock.findBy('id',request.param('id'))
-		yield response.sendView('Stock/show',{Stock:Stock.toJSON()})
+		yield response.sendView('Stock/show',{stock:stock.toJSON()})
 	}
 
 	* edit(request,response){
 		const stock = yield Stock.findBy('id',request.param('id'))
-		yield response.sendView('Stock/edit', {Stock:Stock.toJSON()})
+		yield response.sendView('Stock/edit', {stock:stock.toJSON()})
 	}
 
 	* update(request,response){
@@ -54,12 +54,12 @@ class StockController {
 			return
 		}
 
-		const stock = yield Stock.findBy('id', StockId)
+		const stock = yield Stock.findBy('id', stockId)
 		stock.name = stockData.name
 		stock.storage_amount = stockData.storage_amount
 		stock.price = stockData.price
 		yield stock.save()
-		yield response.redirect(StockId)
+		yield response.redirect(stockId)
 	}
 
 	* destroy(request,response){

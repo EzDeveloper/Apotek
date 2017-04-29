@@ -107,7 +107,7 @@ body {
 .login-input {
   display: block;
   width: 100%;
-  font-size: 2rem;
+  font-size: 1.2rem;
   padding: 0.5rem 1rem;
   box-shadow: none;
   border-color: #ccc;
@@ -123,8 +123,8 @@ body {
 
 .login-btn {
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
+  right: 7rem;
+  bottom: 3rem;
   width: 5rem;
   height: 5rem;
   border: none;
@@ -211,8 +211,8 @@ body {
 }
 .bg-bubbles li:nth-child(7) {
   left: 32%;
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
   -webkit-animation-delay: 7s;
           animation-delay: 7s;
 }
@@ -222,8 +222,8 @@ body {
   height: 20px;
   -webkit-animation-delay: 15s;
           animation-delay: 15s;
-  -webkit-animation-duration: 40s;
-          animation-duration: 40s;
+  -webkit-animation-duration: 30s;
+          animation-duration: 30s;
 }
 .bg-bubbles li:nth-child(9) {
   left: 25%;
@@ -231,13 +231,13 @@ body {
   height: 20px;
   -webkit-animation-delay: 2s;
           animation-delay: 2s;
-  -webkit-animation-duration: 40s;
-          animation-duration: 40s;
+  -webkit-animation-duration: 25s;
+          animation-duration: 25s;
 }
 .bg-bubbles li:nth-child(10) {
   left: 90%;
-  width: 160px;
-  height: 160px;
+  width: 30px;
+  height: 30px;
   -webkit-animation-delay: 11s;
           animation-delay: 11s;
 }
@@ -250,14 +250,104 @@ body {
   -webkit-animation-duration: 35s;
           animation-duration: 35s;
 }
+.bg-bubbles li:nth-child(12) {
+  left: 45%;
+  width: 50px;
+  height: 50px;
+  -webkit-animation-delay: 20s;
+          animation-delay: 20s;
+  -webkit-animation-duration: 20s;
+          animation-duration: 20s;
+}
+.bg-bubbles li:nth-child(13) {
+  left: 65%;
+  width: 35px;
+  height: 35px;
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
+  -webkit-animation-duration: 15s;
+          animation-duration: 15s;
+}
+.bg-bubbles li:nth-child(14) {
+  left: 85%;
+  width: 100px;
+  height: 100px;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  -webkit-animation-duration: 25s;
+          animation-duration: 25s;
+}
+.bg-bubbles li:nth-child(15) {
+  left: 5%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation-delay: 10s;
+          animation-delay: 10s;
+  -webkit-animation-duration: 35s;
+          animation-duration: 35s;
+}
+.bg-bubbles li:nth-child(16) {
+  left: 15%;
+  width: 30px;
+  height: 30px;
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
+  -webkit-animation-duration: 20s;
+          animation-duration: 20s;
+}
+.bg-bubbles li:nth-child(17) {
+  left: 0%;
+  width: 50px;
+  height: 50px;
+  -webkit-animation-delay: 30s;
+          animation-delay: 30s;
+  -webkit-animation-duration: 15s;
+          animation-duration: 15s;
+}
+.bg-bubbles li:nth-child(18) {
+  left: 35%;
+  width: 100px;
+  height: 100px;
+  -webkit-animation-delay: 0s;
+          animation-delay: 0s;
+  -webkit-animation-duration: 35s;
+          animation-duration: 35s;
+}
+.bg-bubbles li:nth-child(19) {
+  left: 100%;
+  width: 20px;
+  height: 20px;
+  -webkit-animation-delay: 10s;
+          animation-delay: 10s;
+  -webkit-animation-duration: 20s;
+          animation-duration: 20s;
+}
+.bg-bubbles li:nth-child(20) {
+  left: 95%;
+  width: 80px;
+  height: 80px;
+  -webkit-animation-delay: 7s;
+          animation-delay: 7s;
+  -webkit-animation-duration: 35s;
+          animation-duration: 35s;
+}
+.bg-bubbles li:nth-child(21) {
+  left: 75%;
+  width: 40px;
+  height: 40px;
+  -webkit-animation-delay: 15s;
+          animation-delay: 15s;
+  -webkit-animation-duration: 15s;
+          animation-duration: 15s;
+}
 @-webkit-keyframes square {
   0% {
     -webkit-transform: translateY(0);
             transform: translateY(0);
   }
   100% {
-    -webkit-transform: translateY(1000px) rotate(3000deg);
-            transform: translateY(1000px) rotate(3000deg);
+    -webkit-transform: translateY(1500px) rotate(3000deg);
+            transform: translateY(1500px) rotate(3000deg);
   }
 }
 @keyframes square {
@@ -266,7 +356,7 @@ body {
             transform: translateY(0);
   }
   100% {
-    -webkit-transform: translateY(1000px) rotate(3000deg);
-            transform: translateY(1000px) rotate(3000deg);
+    -webkit-transform: translateY(1500px) rotate(3000deg);
+            transform: translateY(1500px) rotate(3000deg);
   }
 }
