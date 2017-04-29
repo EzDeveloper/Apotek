@@ -19,6 +19,7 @@ class UserController {
 
   * store(request, response){
     const userData = request.except('_csrf','submit')
+    console.log(userData)
     const validation = yield Validator.validate(userData, User.rules)
     if (validation.fails()){
       yield request

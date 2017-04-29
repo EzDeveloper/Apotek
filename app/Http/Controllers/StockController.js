@@ -21,11 +21,9 @@ class StockController {
 			return
 		}
 		const stock = yield Stock.findBy('id',stockId)
-		console.log(stock.storage_amount)
-		console.log(added_amount)
-		console.log(parseInt(added_amount));
-		const temp = parseInt(added_amount) + stock.storage_amount;
-		console.log(temp);
+		stock.storage_amount = (stock.storage_amount+added_amount)
+		//console.log((stock.storage_amount+added_amount).toJSON())
+		//console.log(stock.storage_amount.toJSON())
 		yield stock.save()
 		response.redirect('/stock')
 	} 
