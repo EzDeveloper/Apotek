@@ -47,7 +47,7 @@ class RoleController {
 	
 		if(validation.fails()){
 			yield request
-			.withOnly('name','birth_date','address','phone','kis')
+			.withOnly('name')
 			.andWith({errors:validation.messages()})
 			.flash()
 			response.redirect(roleId+'/edit')
