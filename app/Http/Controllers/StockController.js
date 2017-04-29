@@ -5,9 +5,34 @@ const Validator = use('Validator')
 
 class StockController {
 
+	* increaseAmount (request, response){
+		const stockData = request.only('added_amount')
+		const rules = {
+			added_amount: 'required|above:0'
+		}
+		const validation = yield Validator.validate(added_amount, rules)
+		if (validation.fails()){
+			yield request
+				.withOnly('id','added_amount') 
+				.andWith({ errors:validation.messages()})
+				.flash()
+			response.redirect('/stock/'+stockData.id+'/add')
+			return
+		}
+		const stock = yield Stock.findBy('id',request.param('id'))
+		stock.storage_amount = stock.storage_amount+added_amount
+		yield stock.save()
+		response.redirect('/stock')
+	} 
+
+	* add(request, response){
+		const stock = yield Stock.findBy('id',request.param('id'))
+		yield response.sendView('stock/add',{stock:stock.toJSON()})
+	}
+
 	* index(request, response){
-		 const stocks = yield Stock.query().orderBy('name','asc').fetch()
-		 yield response.sendView('stock/index', {stocks: stocks.toJSON()})
+		const stocks = yield Stock.query().orderBy('name','asc').fetch()
+		yield response.sendView('stock/index', {stocks: stocks.toJSON()})
 	}
 
 	* create(request, response){
@@ -22,22 +47,22 @@ class StockController {
 				.withOnly('name','storage_amount','price') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('Stock/create')
+			response.redirect('stock/create')
 			return
 		}
 		yield Stock.create(StockData)
-		yield response.sendView('Stock/create', {successMessage: 'Created Stock Successfully'})
+		yield response.sendView('stock/create', {successMessage: 'Created Stock Successfully'})
 
 	}
 
 	* show(request,response){
 		const stock = yield Stock.findBy('id',request.param('id'))
-		yield response.sendView('Stock/show',{stock:stock.toJSON()})
+		yield response.sendView('stock/show',{stock:stock.toJSON()})
 	}
 
 	* edit(request,response){
 		const stock = yield Stock.findBy('id',request.param('id'))
-		yield response.sendView('Stock/edit', {stock:stock.toJSON()})
+		yield response.sendView('stock/edit', {stock:stock.toJSON()})
 	}
 
 	* update(request,response){
