@@ -5,7 +5,7 @@ const Validator = use('Validator')
 
 class StockController {
 
-	* increaseStorageAmount (request, response){
+	* increaseAmount (request, response){
 		const stockData = request.only('added_amount')
 		const rules = {
 			added_amount: 'required|above:0'
@@ -25,14 +25,14 @@ class StockController {
 		response.redirect('/stock')
 	} 
 
-	* addPage(request, response){
+	* add(request, response){
 		const stock = yield Stock.findBy('id',request.param('id'))
 		yield response.sendView('stock/add',{stock:stock.toJSON()})
 	}
 
 	* index(request, response){
-		 const stocks = yield Stock.query().orderBy('name','asc').fetch()
-		 yield response.sendView('stock/index', {stocks: stocks.toJSON()})
+		const stocks = yield Stock.query().orderBy('name','asc').fetch()
+		yield response.sendView('stock/index', {stocks: stocks.toJSON()})
 	}
 
 	* create(request, response){
