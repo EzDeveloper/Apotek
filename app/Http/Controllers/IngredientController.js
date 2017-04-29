@@ -16,7 +16,11 @@ class IngredientController {
 
 	* store(request, response){
 		const ingredientData = request.except('_csrf','submit')
-		const validation = yield Validator.validate(ingredientData, Ingredient.rules)
+		const messages = {
+  			'stock_id.required' : 'Stock name must not be empty',
+  			'stock_id.above' : 'Not such stock exist'
+		}
+		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
 		if (validation.fails()){
 			yield request
 				.withOnly('role_id','amount','price') 
@@ -25,47 +29,49 @@ class IngredientController {
 			response.redirect('ingredient/create')
 			return
 		}
-		yield Ingredient.create(IngredientData)
-		yield response.sendView('Ingredient/create', {successMessage: 'Created Ingredient Successfully'})
+		yield Ingredient.create(ingredientData)
+		yield response.sendView('ingredient/create', {successMessage: 'Created Ingredient Successfully'})
 
 	}
 
 	* show(request,response){
-		const igredient = yield Ingredient.findBy('id',request.param('id'))
-		yield response.sendView('ingredient/show',{igredient:igredient.toJSON()})
+		const ingredient = yield Ingredient.findBy('id',request.param('id'))
+		yield response.sendView('ingredient/show',{nigredient:ingredient.toJSON()})
 	}
 
 	* edit(request,response){
-		const igredient = yield Ingredient.findBy('id',request.param('id'))
-		yield response.sendView('ingredient/edit', {igredient:igredient.toJSON()})
+		const ingredient = yield Ingredient.findBy('id',request.param('id'))
+		yield response.sendView('ingredient/edit', {ingredient:ingredient.toJSON()})
 	}
 
 	* update(request,response){
 		const ingredientId = request.param('id')
-		const ingredientData = request.except('_csrf','submit')
-		const validation = yield Validator.validate(igredientData,Ingredient.rules)
-	
-		if(validation.fails()){
+		const messages = {
+  			'stock_id.required' : 'Stock name must not be empty',
+  			'stock_id.above' : 'Not such stock exist'
+		}
+		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
+		if (validation.fails()){
 			yield request
-			.withOnly('name','storage_amount','price') 
-			.andWith({errors:validation.messages()})
-			.flash()
-			response.redirect(IngredientId+'/edit')
+				.withOnly('role_id','amount','price') 
+				.andWith({ errors:validation.messages()})
+				.flash()
+			response.redirect(ingredientId+'/edit')
 			return
 		}
 
-		const ingredient = yield Ingredient.findBy('id', IngredientId)
-		ingredient.name = IngredientData.name
-		ingredient.storage_amount = IngredientData.storage_amount
+		const ingredient = yield Ingredient.findBy('id', ingredientId)
+		ingredient.stock_id = IngredientData.stock_id
+		ingredient.amount = IngredientData.amount
 		ingredient.price = IngredientData.price
-		yield Ingredient.save()
-		yield response.redirect(IngredientId)
+		yield ingredient.save()
+		yield response.redirect(ingredientId)
 	}
 
 	* destroy(request,response){
-		const Ingredient = yield Ingredient.findBy('id',request.param('id'))
-		yield Ingredient.delete()
-		yield response.redirect('/Ingredient')
+		const ingredient = yield Ingredient.findBy('id',request.param('id'))
+		yield ingredient.delete()
+		yield response.redirect('/ingredient')
 	}
 }
 
