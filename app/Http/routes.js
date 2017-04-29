@@ -18,11 +18,11 @@
 const Route = use('Route')
 
 Route.on('/').render('login')
-
 Route.resource('customer','CustomerController')
 Route.resource('user','UserController')
 Route.resource('role','RoleController')
-Route.get('stock/add','StockController.add')
-Route.post('stock/add','StockController.increase')
+Route.resource('stock','StockController');
+Route.get('stock/:id/add','StockController.add')
+Route.post('stock/:id/add','StockController.increase')
 
 Route.on('/admin').render('base');

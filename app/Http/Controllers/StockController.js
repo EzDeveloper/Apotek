@@ -80,7 +80,7 @@ class StockController {
 			return
 		}
 
-		const stock = yield Stock.findBy('id', StockId)
+		const stock = yield Stock.findBy('id', stockId)
 		stock.name = stockData.name
 		stock.storage_amount = stockData.storage_amount
 		stock.price = stockData.price

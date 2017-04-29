@@ -89,10 +89,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Birth Date</label>
                                     <div class="col-sm-10">
+                                        <p class="form-control-static">{{user[0].birth_date}}</p>
                                         {{ form.date('birth_date',  user[0].birth_date  , { class: 'form-control'}) }}
-                                        <p>{{ "test" | length }}</p>
-                                        <p>{{ user[0].birth_date }}</p>
-                                        <input type="datetime-local" value={{ user[0].birth_date  }} />
                                     </div>
                                 </div>
                                 <div class="form-group">
