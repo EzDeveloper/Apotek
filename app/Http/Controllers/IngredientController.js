@@ -9,7 +9,7 @@ class IngredientController {
 
 	* index(request, response){
 		 const ingredients = yield Ingredient.query().with('stock').orderBy('created_at','desc').fetch()
-		 yield response.sendView('ingredient/index', {ingredients: ingredients.toJSON()})
+		 yield response.sendView('Ingredient/index', {ingredients: ingredients.toJSON()})
 	}
 
 	* create(request, response){
@@ -23,7 +23,7 @@ class IngredientController {
 
 		const messages = {
   			'stock_id.required' : 'Stock name must not be empty',
-  			'stock_id.above' : 'Not such stock exist',
+  			'stock_id.above' : 'Not such stock exist'
 		}
 		const medicineId = request.param('id')
 		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
@@ -58,7 +58,6 @@ class IngredientController {
 		yield stock.save()
 		yield ingredient.save()
 		yield response.sendView('medicine/'+medicineId+'/create', {successMessage: 'Created Ingredient Successfully'})
-
 	}
 
 	* show(request,response){

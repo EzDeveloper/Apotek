@@ -22,10 +22,9 @@ Route.resource('customer','CustomerController')
 Route.resource('user','UserController')
 Route.resource('role','RoleController')
 
-
 Route.resource('stock','StockController');
-Route.get('stock/:id/add','StockController.add')
-Route.post('stock/:id/add','StockController.increase')
+Route.get('/stock/:id/add','StockController.add')
+Route.post('/stock/:id/add','StockController.increase')
 
 //Ingredient Routing
 Route.get('/ingredient','IngredientController.index')
@@ -38,10 +37,13 @@ Route.delete('/medicine/:id/create/:ingredient_id','IngredientController.destroy
 Route.get('/medicine/:id/create','IngredientController.create')
 Route.post('/medicine/:id/create','IngredientController.store')
 
+<<<<<<< HEAD
 Route.get('medicine/create','MedicineController.create')
+=======
+Route.get('')
+>>>>>>> eda56743031006c7c0718bf694c492a8562a12ff
 
 //Pharmacist Stock
 Route.get('/medicine/stock','StockController.showPharmacistStock')
-
 
 Route.on('/admin').render('base');
