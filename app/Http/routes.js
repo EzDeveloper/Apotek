@@ -27,6 +27,6 @@ Route.post('stock/:id/add','StockController.increase')
 
 Route.get('/ingredient','IngredientController.index')
 Route.get('/ingredient/:id','IngredientController.show')
-Route.deleter('/ingredient/:id','IngredientController.destroy')
+Route.delete('/ingredient/:id','IngredientController.destroy')
 
 Route.on('/admin').render('base');

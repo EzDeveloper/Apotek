@@ -30,10 +30,10 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Stock Id</th>
+                                    <th>Name</th>
                                     <th>Amount (mg)</th>
                                     <th>Price (Rp/mg)</th>
-                                    <th>Medicine Id</th>
+                                    <th>Created Date</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
@@ -41,11 +41,11 @@
                                 {%for ingredient in ingredients %}
                                     <tr>
                                         <td>{{ingredient.id}}</td>
-                                        <td>{{ingredient.stock_id}}</td>
+                                        <td>{{ingredient.stock.name}}</td>
                                         <td>{{ingredient.amount}}</td>
                                         <td>{{ingredient.price}}</td>
-                                        <td>{{ingredient.medicine_id}}</td>
-                                        <td><a href="stock/{{ingredient.id}}">View</a></td>
+                                        <td>{{ingredient.created_at}}</td>
+                                        <td><a href="ingredient/{{ingredient.id}}">View</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
