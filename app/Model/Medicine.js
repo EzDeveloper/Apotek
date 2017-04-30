@@ -3,10 +3,10 @@
 const Lucid = use('Lucid')
 
 class Medicine extends Lucid {
-	
+
 	static get rules(){
 		return {
-
+			name: 'required|max:100',	
 		}
 	}
 
