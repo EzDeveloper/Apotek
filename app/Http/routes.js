@@ -30,12 +30,15 @@ Route.post('stock/:id/add','StockController.increase')
 //Ingredient Routing
 Route.get('/ingredient','IngredientController.index')
 Route.get('/ingredient/:id','IngredientController.show')
-Route.delete('/ingredient/:id','IngredientController.destroy')
+
+
+Route.delete('/medicine/:id/create/:ingredient_id','IngredientController.destroy')
 
 //Medicine Routing
 Route.get('/medicine/:id/create','IngredientController.create')
 Route.post('/medicine/:id/create','IngredientController.store')
-Route.get('')
+
+Route.get('medicine/create','MedicineController.create')
 
 //Pharmacist Stock
 Route.get('/medicine/stock','StockController.showPharmacistStock')

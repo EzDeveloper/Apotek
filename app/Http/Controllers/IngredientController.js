@@ -1,5 +1,6 @@
 'use strict'
 
+const Medicine = use('App/Model/Medicine')
 const Ingredient = use('App/Model/Ingredient')
 const Stock = use('App/Model/Stock')
 const Validator = use('Validator')
@@ -12,7 +13,9 @@ class IngredientController {
 	}
 
 	* create(request, response){
-		yield response.sendView('medicine/'+request.param('id')+'/create')
+		const medicine = yield Medicine.findBy('id',request.param('id'))
+		const ingredients = yield Ingredient.query().whereNull('medicine_id').fetch()
+		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON()})
 	}
 
 	* store(request, response){
@@ -21,17 +24,15 @@ class IngredientController {
 		const messages = {
   			'stock_id.required' : 'Stock name must not be empty',
   			'stock_id.above' : 'Not such stock exist',
-  			'medicine_id': 'Medicine name must not be empty',
-  			'medicine_id.above': 'Not such medicine exist',
 		}
-
+		const medicineId = request.param('id')
 		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
 		if (validation.fails()){
 			yield request
-				.withOnly('stock_id','medicine_id','amount') 
+				.withOnly('stock_id','amount') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('medicine/'+ingredientData.medicine_id+'/create')
+			response.redirect('medicine/'+medicineId+'/create')
 			return
 		}
 		//cari stock sesuai stock_id di ingredient & rubah storage_amount
@@ -42,10 +43,10 @@ class IngredientController {
 		validation = yield Validator.validation(stock,Stock.rules)
 		if (validation.fails()){
 			yield request
-				.withOnly('stock_id','medicine_id','amount','price') 
+				.withOnly('stock_id','medicine_id','amount') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('medicine/'+ingredientData.medicine_id+'/create')
+			response.redirect('medicine/'+medicineId+'/create')
 			return
 		}
 		const ingredient = new Ingredient()
@@ -56,7 +57,7 @@ class IngredientController {
 
 		yield stock.save()
 		yield ingredient.save()
-		yield response.sendView('medicine/'+ingredientData.medicine_id+'/create', {successMessage: 'Created Ingredient Successfully'})
+		yield response.sendView('medicine/'+medicineId+'/create', {successMessage: 'Created Ingredient Successfully'})
 
 	}
 
@@ -103,11 +104,11 @@ class IngredientController {
 	*/
 
 	* destroy(request,response){
-		const ingredient = yield Ingredient.findBy('id',request.param('id'))
+		const ingredient = yield Ingredient.findBy('id',request.param('ingredient_id'))
 		const stock = yield Stock.findBy('id',ingredient.stock_id)
 		stock.storage_amount = (stock.storage_amount + ingredient.amount)
 		yield ingredient.delete()
-		yield response.redirect('/ingredient')
+		yield response.redirect('/medicine/'+request.param('id'))
 	}
 }
 
