@@ -1,7 +1,7 @@
 'use strict'
 
 const Ingredient = use('App/Model/Ingredient')
-const Stock = user('App/Model/Stock')
+const Stock = use('App/Model/Stock')
 const Validator = use('Validator')
 
 class IngredientController {
