@@ -33,8 +33,13 @@ class StockController {
 	}
 
 	* index(request, response){
-		 const stocks = yield Stock.query().orderBy('name','asc').fetch()
-		 yield response.sendView('stock/index', {stocks: stocks.toJSON()})
+		const stocks = yield Stock.query().orderBy('name','asc').fetch()
+		yield response.sendView('stock/index', {stocks: stocks.toJSON()})
+	}
+
+	* showPharmacistStock (request, response){
+		const stocks = yield Stock.query().orderBy('name','asc').fetch()
+		yield response.sendView('stock/showPharmacistStock', {stocks: stocks.toJSON()})
 	}
 
 	* create(request, response){

@@ -31,13 +31,14 @@ Route.post('stock/:id/add','StockController.increase')
 Route.get('/ingredient','IngredientController.index')
 Route.get('/ingredient/:id','IngredientController.show')
 Route.delete('/ingredient/:id','IngredientController.destroy')
-<<<<<<< HEAD
-
 
 //Medicine Routing
 Route.get('/medicine/:id/create','IngredientController.create')
 Route.post('/medicine/:id/create','IngredientController.store')
-=======
->>>>>>> 23732e6888dce4af6589d289838e67daf1a02e84
+Route.get('')
+
+//Pharmacist Stock
+Route.get('/medicine/stock','StockController.showPharmacistStock')
+
 
 Route.on('/admin').render('base');
