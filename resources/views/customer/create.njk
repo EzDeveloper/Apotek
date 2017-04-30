@@ -8,7 +8,7 @@
 
 {% block navSideBarList%}
     <li class="active">
-        <a href="CustomerData.html"><i class="fa fa-fw fa-table"></i> Customer Data</a>
+        {{ linkToAction('CustomerController.index', '<i class="fa fa-fw fa-table"></i> Customer Data') }} 
     </li>
     <li>
         <a href="createTransaction.html"><i class="fa fa-fw fa-edit"></i>Create Transaction</a>
@@ -80,7 +80,7 @@
                         <div class="form-group "> 
                             {{form.label('kis','KIS') }}
                             <div style="left:1rem">
-                                <input type="checkbox" name="kis" > check it
+                                <input type="checkbox" name="kis" >
                             </div>
                         </div> 
 
