@@ -17,22 +17,44 @@ class IngredientController {
 
 	* store(request, response){
 		const ingredientData = request.except('_csrf','submit')
+
 		const messages = {
   			'stock_id.required' : 'Stock name must not be empty',
   			'stock_id.above' : 'Not such stock exist'
 		}
+
 		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
 		if (validation.fails()){
 			yield request
-				.withOnly('role_id','amount','price') 
+				.withOnly('stock_id','medicine_id','amount') 
 				.andWith({ errors:validation.messages()})
 				.flash()
 			response.redirect('ingredient/create')
 			return
 		}
-		yield Ingredient.create(ingredientData)
-		yield response.sendView('ingredient/create', {successMessage: 'Created Ingredient Successfully'})
+		//cari stock sesuai stock_id di ingredient & rubah storage_amount
+		const stock = yield Stock.findBy('id',ingredientData.stock_id)
+		stock.storage_amount = (stock.storage_amout - ingredientData.amount)
 
+		//cel stock apakah amount cukup
+		validation = yield Validator.validation(stock,Stock.rules)
+		if (validation.fails()){
+			yield request
+				.withOnly('stock_id','medicine_id','amount','price') 
+				.andWith({ errors:validation.messages()})
+				.flash()
+			response.redirect('medicine/'+ingredientData.medicine_id+'/create')
+			return
+		}
+		const ingredient = new Ingredient()
+		ingredient.stock_id = ingredientData.stock_id
+		ingredient.medicine_id = ingredientData.medicine_id
+		ingredient.amount = ingredientData.amount
+		ingredient.price = (ingredientData.amount * stock.price)
+
+		yield stock.save()
+		yield ingredient.save()
+		yield response.sendView('medicine/'+ingredientData.medicine_id+'/create', {successMessage: 'Created Ingredient Successfully'})
 	}
 
 	* show(request,response){

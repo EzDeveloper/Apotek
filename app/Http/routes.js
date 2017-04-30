@@ -35,4 +35,9 @@ Route.delete('/ingredient/:id','IngredientController.destroy')
 Route.get('/medicine/:id/create','IngredientController.create')
 Route.post('/medicine/:id/create','IngredientController.store')
 
+Route.get('')
+
+//Pharmacist Stock
+Route.get('/medicine/stock','StockController.showPharmacistStock')
+
 Route.on('/admin').render('base');
