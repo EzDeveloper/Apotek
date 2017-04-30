@@ -3,6 +3,7 @@
 const User = use('App/Model/User')
 const Role = use('App/Model/Role')
 const Validator = use('Validator')
+const moment = require('moment');
 
 class UserController {
 
@@ -29,6 +30,8 @@ class UserController {
       response.redirect('user/create')
       return
     }
+    userData.birth_date = moment(userData.birth_date).format("YYYY-MM-DD")
+    console.log(userData.birth_date)
     yield User.create(userData)
     yield response.sendView('user/create', {successMessage: 'Created User Successfully'})
 
@@ -36,12 +39,19 @@ class UserController {
 
   * show(request,response){
     const user = yield User.query().where('id',request.param('id')).with('role').fetch()
+    console.log(user.birth_date.toJSON)
+
+    user.birth_date = moment(user.birth_date).format("YYYY-MM-DD")
+    
+    console.log(user.birth_date)
     yield response.sendView('user/show', {user:user.toJSON()})
   }
 
   * edit(request,response){
     const user = yield User.query().where('id',request.param('id')).with('role').fetch()
     const roles = yield Role.all()
+    user.birth_date = moment(user.birth_date).format("YYYY-MM-DD")
+    console.log(user.birth_date)
     yield response.sendView('user/edit', {user:user.toJSON(), roles:roles.toJSON()})
   }
 

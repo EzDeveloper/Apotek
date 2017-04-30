@@ -2,7 +2,7 @@
 
 const Medicine = use('App/Model/Medicine')
 const Validator = use('Validator')
-const Ingredient = user('App/Model/ingredient')
+const Ingredient = use('App/Model/ingredient')
 
 class MedicineController {
 	
@@ -44,6 +44,8 @@ class MedicineController {
 		const ingredients = yield ingredients.query().where('medicine_id',medicineId).with('stock').fetch()
 		yield response.sendView('medicine/detail',{medicine:medicine.toJSON(), ingredients:ingredients.toJSON()})
 	}
+
+	* delete
 }
 
 module.exports = MedicineController
