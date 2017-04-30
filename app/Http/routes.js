@@ -24,5 +24,6 @@ Route.resource('role','RoleController')
 Route.resource('stock','StockController');
 Route.get('stock/:id/add','StockController.add')
 Route.post('stock/:id/add','StockController.increase')
+Route.resource('ingredient','ingredientController').except('create','store')
 
 Route.on('/admin').render('base');

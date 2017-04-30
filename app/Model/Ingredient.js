@@ -8,8 +8,17 @@ class Ingredient extends Lucid {
 		return {
 			stock_id: 'required|above:0',
 			amount: 'required|above:0',
-			price: 'required|above:0'
+			price: 'required|above:0',
+			medicine_id: 'required|above:0'
 		}
+	}
+
+	Stock() {
+		return this.belongsTo('App/Model/Stock')
+	}
+
+	Medicine() {
+		return this.belongsTo('App/Model/Medicine')
 	}
 }
 

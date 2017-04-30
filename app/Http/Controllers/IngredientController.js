@@ -1,6 +1,7 @@
 'use strict'
 
 const Ingredient = use('App/Model/Ingredient')
+const Stock = user('App/Model/Stock')
 const Validator = use('Validator')
 
 class IngredientController {
@@ -36,7 +37,8 @@ class IngredientController {
 
 	* show(request,response){
 		const ingredient = yield Ingredient.findBy('id',request.param('id'))
-		yield response.sendView('ingredient/show',{nigredient:ingredient.toJSON()})
+
+		yield response.sendView('ingredient/show',{ingredient:ingredient.toJSON()})
 	}
 
 	* edit(request,response){
@@ -45,21 +47,23 @@ class IngredientController {
 	}
 
 	* update(request,response){
-		const ingredientId = request.param('id')
+		
 		const messages = {
   			'stock_id.required' : 'Stock name must not be empty',
-  			'stock_id.above' : 'Not such stock exist'
+  			'stock_id.above' : 'No such stock exist',
+  			'medicine_id.required': 'Medicine name must not be empty',
+  			'medicine_id.above' : 'No such medicine exist'
 		}
 		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
 		if (validation.fails()){
 			yield request
-				.withOnly('role_id','amount','price') 
+				.withOnly('role_id','amount','price','medicine_id') 
 				.andWith({ errors:validation.messages()})
 				.flash()
 			response.redirect(ingredientId+'/edit')
 			return
 		}
-
+		const ingredientId = request.param('id')
 		const ingredient = yield Ingredient.findBy('id', ingredientId)
 		ingredient.stock_id = IngredientData.stock_id
 		ingredient.amount = IngredientData.amount
