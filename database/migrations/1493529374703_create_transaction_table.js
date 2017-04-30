@@ -9,7 +9,8 @@ class TransactionsTableSchema extends Schema {
       table.increments()
       table.timestamps()
       table.integer('customer_id').unsigned().references('id').inTable('customers')
-      table.integer('total_price').notNullable()
+      table.integer('total_price').notNullable().unsigned()
+      table.boolean('status').notNullable()
     })
   }
 

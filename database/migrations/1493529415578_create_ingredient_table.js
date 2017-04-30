@@ -9,7 +9,7 @@ class IngredientsTableSchema extends Schema {
       table.increments()
       table.timestamps()
       table.integer('stock_id').notNullable().unsigned().references('id').inTable('stocks')
-      talbe.integer('medicine_id').notNullable().unsigned().references('id').inTable('medicines')
+      table.integer('medicine_id').notNullable().unsigned().references('id').inTable('medicines')
       table.integer('amount').notNullable()
       table.integer('price').notNullable()
     })
