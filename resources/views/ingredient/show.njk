@@ -77,7 +77,7 @@
 
         </div>
 
-        {{ form.open({ route: 'ingredient.destroy', params:{ id:ingredient[0].id } }) }}
+        {{ form.open({ action: 'IngredientController.destroy', params:{ id:ingredient[0].id } }) }}
             {{csrfField}}
             {{ form.button('Delete','', { class: 'btn btn-danger ',style:'margin-left:20px' }) }} 
         {{ form.close() }}
