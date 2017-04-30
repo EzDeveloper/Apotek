@@ -16,8 +16,7 @@ class CustomerController {
 
 	* store(request, response){
 		const customerData = request.except('_csrf','submit')
-		console.log(customerData)
-		const validation = yield Validator.validation(customerData, Customer.rules)
+		const validation = yield Validator.validate(customerData, Customer.rules)
 		if (validation.fails()){
 			yield request
 				.withOnly('name','birth_date','address','phone','kis') 
