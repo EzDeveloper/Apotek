@@ -9,6 +9,12 @@ class Medicine extends Lucid {
 
 		}
 	}
+
+	transaction() {
+		return this.belongsTo('App/Model/transaction')
+	}
+
+	
 }
 
 module.exports = Medicine
