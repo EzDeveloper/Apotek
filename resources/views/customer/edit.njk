@@ -1,0 +1,103 @@
+{% extends 'base' %}
+
+{% block navBarRole%}
+    <div class="navbar-brand" >
+        Cashier
+    </div>
+{% endblock %}
+
+{% block navSideBarList%}
+    <li class="active">
+        {{ linkToAction('CustomerController.index', '<i class="fa fa-fw fa-table"></i> Customer Data') }} 
+    </li>
+    <li>
+        <a href="createTransaction.html"><i class="fa fa-fw fa-edit"></i>Create Transaction</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class = "col-lg-12">
+        {% if successMessage %}
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="Close">&times;</a>
+                <strong>Success!</strong> {{successMessage}}.
+            </div>
+        {% endif %}
+
+        {% if old('errors') %}
+            <div class="alert alert-danger alert-dismissable">
+                {% for error in old('errors') %}
+                    <a href="#" class="close" data-dismiss="alert" aria-label="Close">&times;</a>
+                    <li> {{ error.message }} </li>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer</h3>
+            </div>
+
+              {{ form.open({route: 'customer.update', params: {id: customer.id} }) }}
+
+                    {{csrfField}}
+                        <div class="panel-body">          
+                                                         
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Customer ID</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{customer.id}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        {{ form.text('name',  customer.name  , { class: 'form-control'}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Birth Date</label>
+                                    <div class="col-sm-10">
+                                        <p class="form-control-static">{{customer.birth_date}}</p>
+                                        {{ form.date('birth_date',  customer.birth_date  , { class: 'form-control'}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Address</label>
+                                    <div class="col-sm-10">
+                                        {{ form.text('address',  customer.address  , { class: 'form-control'}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Phone</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" name="phone" class="form-control" value={{customer.phone}}>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Phone</label>
+                                    <div class="col-sm-10">
+                                        <div style="margin-top:1%">
+                                            {% if customer.kis == 1 %}
+                                                <input type="checkbox" name="kis" checked>
+                                            {% else %}
+                                                <input type="checkbox" name="kis" >
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>         
+                        </div>
+                    </div>
+
+                 {{ form.button('Update','', { class: 'btn btn-success ', style: 'margin-top: 20px'}) }}
+            {{ form.close() }}
+
+    </div>
+
+{% endblock %}

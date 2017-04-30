@@ -14,7 +14,7 @@
         {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-wrench"></i> Role') }} 
     </li>
     <li>
-        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-file"></i> Medicine Stock') }} 
+        {{ linkToAction('StockController.index', '<i class="fa fa-fw fa-file"></i> Medicine Stock') }} 
     </li>
     <li>
         {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-medkit"></i> Sales Report') }} 
@@ -45,7 +45,7 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">Role</h3>
+                <h3 class="panel-title">User</h3>
             </div>
 
              {{ form.open({route: 'user.update', params: {id:user[0].id} }) }}

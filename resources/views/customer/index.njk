@@ -8,9 +8,9 @@
 
 {% block navSideBarList%}
     <li class="active">
-        <a href="CustomerData.html"><i class="fa fa-fw fa-table"></i> Customer Data</a>
+        {{ linkToAction('CustomerController.index', '<i class="fa fa-fw fa-table"></i> Customer Data') }} 
     </li>
-    <li >
+    <li>
         <a href="createTransaction.html"><i class="fa fa-fw fa-edit"></i>Create Transaction</a>
     </li>
 {% endblock %}
@@ -49,7 +49,11 @@
                                         <td>{{customer.birth_date}}</td>
                                         <td>{{customer.address}}</td>
                                         <td>{{customer.phone}}</td>
-                                        <td>{{customer.kis}}</td>
+                                        {% if customer.kis == 1 %}
+                                            <td>Yes</td>
+                                        {% else %}
+                                            <td>No</td>
+                                        {% endif %}
                                         <td><a href="customer/{{customer.id}}">View</a></td>
                                     </tr>
                                 {% endfor %}

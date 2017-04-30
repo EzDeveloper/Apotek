@@ -41,7 +41,6 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Amount (mg)</th>
-                                    <th>Add</th>
                                     <th>Price (Rp/mg)</th>
                                     <th>View</th>
                                 </tr>
@@ -51,8 +50,13 @@
                                     <tr>
                                         <td>{{stock.id}}</td>
                                         <td>{{stock.name}}</td>
-                                        <td>{{stock.storage_amount}}</td>
-                                        <td><a href="stock/{{stock.id}}/add">Add</a></td>
+                                        <td>{{stock.storage_amount}}
+                                            <a href="stock/{{stock.id}}/add" style="margin-left:60%">
+                                                <button type="button" class="btn btn-success" style="font-color:#000;font-size:18px">
+                                                    +
+                                                </button>
+                                            </a>
+                                        </td>
                                         <td>{{stock.price}}</td>
                                         <td><a href="stock/{{stock.id}}">View</a></td>
                                     </tr>

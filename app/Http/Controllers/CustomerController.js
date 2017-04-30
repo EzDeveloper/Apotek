@@ -16,10 +16,15 @@ class CustomerController {
 
 	* store(request, response){
 		const customerData = request.except('_csrf','submit')
+		if(customerData.kis == 'on'){
+			customerData.kis = true;
+		} else {
+			customerData.kis = false;
+		}
 		const validation = yield Validator.validate(customerData, Customer.rules)
 		if (validation.fails()){
 			yield request
-				.withOnly('name','birth_date','address','phone','kis') 
+				.withOnly('name','birth_date','address','phone') 
 				.andWith({ errors:validation.messages()})
 				.flash()
 			response.redirect('customer/create')
@@ -31,8 +36,8 @@ class CustomerController {
 	}
 
 	* show(request,response){
-		const customer = yield Customer.findBy('id',request.paran('id)'))
-		yield response.sendView('customer/show',{customer:customer.toJSON()})
+		const customer = yield Customer.findBy('id',request.param('id'))
+		yield response.sendView('customer/show', {customer:customer.toJSON()})
 	}
 
 	* edit(request,response){
@@ -43,7 +48,12 @@ class CustomerController {
 	* update(request,response){
 		const customerId = request.param('id')
 		const customerData = request.except('_csrf','submit')
-		const validation = yield Validator.validate(customerData, customer.updateRules(customerId))
+		if(customerData.kis == 'on'){
+			customerData.kis = true;
+		} else {
+			customerData.kis = false;
+		}
+		const validation = yield Validator.validate(customerData, Customer.rules)
 	
 		if(validation.fails()){
 			yield request
