@@ -7,11 +7,17 @@
 {% endblock %}
 
 {% block navSideBarList%}
-    <li class="active">
-        {{ linkToAction('StockController.index', '<i class="fa fa-fw fa-leaf"></i> Ingredient') }} 
+    <li>
+        {{ linkToAction('StockController.showPharmacistStock', '<i class="fa fa-fw fa-file"></i> Stock') }} 
     </li>
     <li>
-        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-medkit"></i> Sales Report') }} 
+        {{ linkToAction('StockController.index', '<i class="fa fa-fw fa-leaf"></i> Ingredient') }} 
+    </li>
+    <li class="active">
+        {{ linkToAction('MedicineController.newMedicine', '<i class="fa fa-fw fa-medkit"></i> Pending Medicine') }} 
+    </li>
+    <li >
+        {{ linkToAction('MedicineController.index', '<i class="fa fa-fw fa-table"></i> Medicine Report') }} 
     </li>
 {% endblock %}
 
@@ -39,15 +45,26 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h3 class="panel-title">Create Ingredients</h3>
+                <h3 class="panel-title">Create Medicine</h3>
             </div>
 
             <div class="panel-body">                                   
-                 {{ form.open({action: 'IngredientController.store', params: {id: medicine.id} }) }}
+                 {{ form.open({action: 'MedicineController.store'}) }}
 
                     {{csrfField}}
 
-                       
+                    <div class = "col-lg-12">
+
+                        <div class="form-group ">
+                            {{form.label('name','Name') }}
+                            <div>
+                                {{ form.text('name','',{ class: 'form-control'})}}
+                            </div>
+                        </div> 
+
+                        {{ form.submit('Create','submit', { class: 'btn btn-success', style: 'margin-top: 20px'}) }}
+
+                    </div>    
 
                 {{ form.close() }}  
 

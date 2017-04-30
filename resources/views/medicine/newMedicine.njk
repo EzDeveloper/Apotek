@@ -13,10 +13,10 @@
     <li>
         {{ linkToAction('StockController.index', '<i class="fa fa-fw fa-leaf"></i> Ingredient') }} 
     </li>
-    <li>
+    <li class="active">
         {{ linkToAction('MedicineController.newMedicine', '<i class="fa fa-fw fa-medkit"></i> Pending Medicine') }} 
     </li>
-    <li class="active">
+    <li >
         {{ linkToAction('MedicineController.index', '<i class="fa fa-fw fa-table"></i> Medicine Report') }} 
     </li>
 {% endblock %}
@@ -30,6 +30,9 @@
 
             <div class="panel-body">                                   
                  <div class="col-lg-12">
+                    {{ form.open({action: 'MedicineController.create'}) }}
+                        {{ form.button('Create','', { class: 'btn btn-success', style: 'margin-bottom: 20px'}) }}
+                    {{ form.close() }}
 
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover table-striped">
@@ -38,7 +41,7 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Price</th>
-                                    <th>View</th>
+                                    <th>Add Ingredient</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,7 +50,7 @@
                                         <td>{{medicine.id}}</td>
                                         <td>{{medicine.name}}</td>
                                         <td>{{medicine.price}}</td>
-                                        <td><a href="medicine/detail/{{medicine.id}}">View</a></td>
+                                        <td><a href="medicine/{{medicine.id}}/create">Add Ingredient</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

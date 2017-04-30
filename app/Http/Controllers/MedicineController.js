@@ -1,6 +1,6 @@
 'use strict'
 
-const Medicine = user('App/Model/Medicine')
+const Medicine = use('App/Model/Medicine')
 const Validator = use('Validator')
 
 class MedicineController {
