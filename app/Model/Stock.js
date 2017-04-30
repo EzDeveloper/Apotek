@@ -19,6 +19,10 @@ class Stock extends Lucid {
 			price: 'required|above:-1'
     	}
     }
+
+    ingredients() {
+    	return this.hasMany('App/Model/ingredient')
+    }
 }
 
 module.exports = Stock
