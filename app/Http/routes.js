@@ -40,6 +40,8 @@ Route.post('/medicine/:id/create','IngredientController.store')
 
 Route.get('/medicine/create','MedicineController.create')
 Route.post('/medicine','MedicineController.store')
+Route.get('/medicine','MedicineController.newMedicine')
+Route.get('/medicine/report','MedicineController.index')
 
 //Pharmacist Stock
 Route.get('/medicine/stock','StockController.showPharmacistStock')
