@@ -1,0 +1,62 @@
+{% extends 'base' %}
+
+{% block navBarRole%}
+    <div class="navbar-brand" >
+        Pharmacist
+    </div>
+{% endblock %}
+
+{% block navSideBarList%}
+    <li>
+        {{ linkToAction('StockController.showPharmacistStock', '<i class="fa fa-fw fa-file"></i> Stock') }} 
+    </li>
+    <li>
+        {{ linkToAction('StockController.index', '<i class="fa fa-fw fa-leaf"></i> Ingredient') }} 
+    </li>
+    <li>
+        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-medkit"></i> Pending Medicine') }} 
+    </li>
+    <li class="active">
+        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-medkit"></i> Medicine Report') }} 
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Medicine Report</h3>
+            </div>
+
+            <div class="panel-body">                                   
+                 <div class="col-lg-12">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Amount (mg)</th>
+                                    <th>Price (Rp/mg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for medicine in medicines %}
+                                    <tr>
+                                        <td>{{stock.id}}</td>
+                                        <td>{{stock.name}}</td>
+                                        <td>{{stock.storage_amount}}</td>
+                                        <td>{{stock.price}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>                          
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
