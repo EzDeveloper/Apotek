@@ -11,9 +11,12 @@ class Medicine extends Lucid {
 	}
 
 	transaction() {
-		return this.belongsTo('App/Model/transaction')
+		return this.belongsTo('App/Model/Transaction')
 	}
 
+	ingredient() {
+		return this.hasMany('App/Model/ingredient')
+	}
 	
 }
 
