@@ -2,6 +2,7 @@
 
 const Medicine = use('App/Model/Medicine')
 const Validator = use('Validator')
+const Ingredient = user('App/Model/ingredient')
 
 class MedicineController {
 	
@@ -35,6 +36,13 @@ class MedicineController {
 		medicine.price = 0
 		yield medicine.save()
 		yield response.sendView('medicine/create', {successMessage: 'Created Medicine Successfully'})
+	}
+
+	* show(request, response) {
+		const medicineId = request.param('id')
+		const medicine = yield Medicine.findBy('id',medicineId)
+		const ingredients = yield ingredients.query().where('medicine_id',medicineId).with('stock').fetch()
+		yield response.sendView('medicine/detail',{medicine:medicine.toJSON(), ingredients:ingredients.toJSON()})
 	}
 }
 
