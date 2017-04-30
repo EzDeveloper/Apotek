@@ -16,6 +16,7 @@ class IngredientController {
 		const medicine = yield Medicine.findBy('id',request.param('id'))
 		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
 		const stocks = yield Stock.all()
+		console.log(ingredients)
 		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON()})
 	}
 
@@ -33,7 +34,7 @@ class IngredientController {
 				.withOnly('stock_id','amount') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('medicine/'+medicineId+'/create')
+			response.redirect(medicineId+'/create')
 			return
 		}
 		//cari stock sesuai stock_id di ingredient & rubah storage_amount
@@ -47,7 +48,7 @@ class IngredientController {
 				.withOnly('stock_id','medicine_id','amount') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('medicine/'+medicineId+'/create')
+			response.redirect('/medicine/'+medicineId+'/create')
 			return
 		}
 		const ingredient = new Ingredient()
