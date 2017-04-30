@@ -8,48 +8,30 @@ class IngredientController {
 
 	* index(request, response){
 		 const ingredients = yield Ingredient.query().with('stock').orderBy('created_at','desc').fetch()
-		 yield response.sendView('ingredient/index', {ingredients: ingredients.toJSON()})
+		 yield response.sendView('Ingredient/index', {ingredients: ingredients.toJSON()})
 	}
 
 	* create(request, response){
-		yield response.sendView('medicine/'+request.param('id')+'/create')
+		yield response.sendView('ingredient/create')
 	}
 
 	* store(request, response){
 		const ingredientData = request.except('_csrf','submit')
 		const messages = {
   			'stock_id.required' : 'Stock name must not be empty',
-  			'stock_id.above' : 'Not such stock exist',
-  			'medicine_id': 'Medicine name must not be empty',
-  			'medicine_id.above': 'Not such medicine exist',
+  			'stock_id.above' : 'Not such stock exist'
 		}
 		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
 		if (validation.fails()){
 			yield request
-				.withOnly('stock_id','medicine_id','amount','price') 
+				.withOnly('role_id','amount','price') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('medicine/'+ingredientData.medicine_id+'/create')
+			response.redirect('ingredient/create')
 			return
 		}
-		//cari stock sesuai stock_id di ingredient & rubah storage_amount
-		const stock = yield Stock.findBy('id',ingredientData.stock_id)
-		stock.storage_amount = (stock.storage_amout - ingredientData.amount)
-
-		//cel stock apakah amount cukup
-		validation = yield Validator.validation(stock,Stock.rules)
-		if (validation.fails()){
-			yield request
-				.withOnly('stock_id','medicine_id','amount','price') 
-				.andWith({ errors:validation.messages()})
-				.flash()
-			response.redirect('medicine/'+ingredientData.medicine_id+'/create')
-			return
-		}
-
-		yield stock.save()
 		yield Ingredient.create(ingredientData)
-		yield response.sendView('medicine/'++'/create', {successMessage: 'Created Ingredient Successfully'})
+		yield response.sendView('ingredient/create', {successMessage: 'Created Ingredient Successfully'})
 
 	}
 
