@@ -1,6 +1,6 @@
 'use strict'
 
-const Customer = user('App/Model/Customer')
+const Customer = use('App/Model/Customer')
 const Validator = use('Validator')
 
 class CustomerController {
@@ -16,6 +16,7 @@ class CustomerController {
 
 	* store(request, response){
 		const customerData = request.except('_csrf','submit')
+		console.log(customerData)
 		const validation = yield Validator.validation(customerData, Customer.rules)
 		if (validation.fails()){
 			yield request
