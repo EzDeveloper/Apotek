@@ -9,7 +9,7 @@ class StocksTableSchema extends Schema {
       table.increments()
       table.timestamps()
       table.string('name',100).unique().notNullable()
-      table.integer('storage_amount').notNullable().unsigned()
+      table.integer('storage_amount').notNullable()
       table.integer('price').notNullable().unsigned()
     })
   }
