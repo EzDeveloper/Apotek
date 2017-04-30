@@ -37,7 +37,8 @@ Route.delete('/medicine/:id/create/:ingredient_id','IngredientController.destroy
 Route.get('/medicine/:id/create','IngredientController.create')
 Route.post('/medicine/:id/create','IngredientController.store')
 
-Route.get('medicine/create','MedicineController.create')
+Route.get('/medicine/create','MedicineController.create')
+Route.post('/medicine','MedicineController.store')
 
 //Pharmacist Stock
 Route.get('/medicine/stock','StockController.showPharmacistStock')
