@@ -16,7 +16,6 @@ class IngredientController {
 		const medicine = yield Medicine.findBy('id',request.param('id'))
 		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
 		const stocks = yield Stock.all()
-		console.log(ingredients)
 		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON()})
 	}
 
