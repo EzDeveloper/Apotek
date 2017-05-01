@@ -2,7 +2,10 @@
 
 const Medicine = use('App/Model/Medicine')
 const Validator = use('Validator')
-const Ingredient = use('App/Model/ingredient')
+const Ingredient = use('App/Model/Ingredient')
+const Role = use('App/Model/Role')
+const User = use('App/Model/User')
+
 
 class MedicineController {
 	
@@ -17,7 +20,9 @@ class MedicineController {
 	}
 
 	* create(request, response) {
-		yield response.sendView('medicine/create')
+		const users = yield User.query().where('role_id',2).fetch()
+		console.log(users)
+		yield response.sendView('medicine/create', {users:users.toJSON()})
 	}
 
 	* store(request, response) {
@@ -25,7 +30,7 @@ class MedicineController {
 		const validation = yield Validator.validate(medicineData, Medicine.rules)
 		if (validation.fails()){
 			yield request
-				.withOnly('name') 
+				.withOnly('name','user_id') 
 				.andWith({ errors:validation.messages()})
 				.flash()
 			response.redirect('medicine/create')
@@ -34,6 +39,7 @@ class MedicineController {
 		const medicine = new Medicine()
 		medicine.name = medicineData.name
 		medicine.price = 0
+		medicine.user_id = medicineData.user_id
 		yield medicine.save()
 		yield response.sendView('medicine/create', {successMessage: 'Created Medicine Successfully'})
 	}
@@ -45,7 +51,9 @@ class MedicineController {
 		yield response.sendView('medicine/detail',{medicine:medicine.toJSON(), ingredients:ingredients.toJSON()})
 	}
 
-	* delete
+	* destroy(request, response) {
+
+	}
 }
 
 module.exports = MedicineController

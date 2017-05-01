@@ -6,7 +6,8 @@ class Medicine extends Lucid {
 
 	static get rules(){
 		return {
-			name: 'required|max:100',	
+			name: 'required|max:100',
+			user_id: 'required'	
 		}
 	}
 

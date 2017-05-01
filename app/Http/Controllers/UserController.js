@@ -39,7 +39,7 @@ class UserController {
 
   * show(request,response){
     const user = yield User.query().where('id',request.param('id')).with('role').fetch()
-    console.log(user.birth_date.toJSON)
+    //console.log(user.birth_date.toJSON)
 
     user.birth_date = moment(user.birth_date).format("YYYY-MM-DD")
     

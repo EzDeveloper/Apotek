@@ -11,6 +11,7 @@ class TransactionsTableSchema extends Schema {
       table.integer('customer_id').unsigned().references('id').inTable('customers')
       table.integer('total_price').notNullable().unsigned()
       table.boolean('status').notNullable()
+      table.integer('user_id').notNullable().unsigned().references('id').inTable('users')
     })
   }
 

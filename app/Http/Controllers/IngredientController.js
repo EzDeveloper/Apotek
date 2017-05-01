@@ -22,13 +22,12 @@ class IngredientController {
 
 	* store(request, response){
 		const ingredientData = request.except('_csrf','submit')
-
 		const messages = {
   			'stock_id.required' : 'Stock name must not be empty',
   			'stock_id.above' : 'Not such stock exist'
 		}
 		const medicineId = request.param('id')
-		const validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
+		var validation = yield Validator.validate(ingredientData, Ingredient.rules, messages)
 		if (validation.fails()){
 			yield request
 				.withOnly('stock_id','amount') 
@@ -39,10 +38,15 @@ class IngredientController {
 		}
 		//cari stock sesuai stock_id di ingredient & rubah storage_amount
 		const stock = yield Stock.findBy('id',ingredientData.stock_id)
-		stock.storage_amount = (stock.storage_amout - ingredientData.amount)
-
+		console.log(stock)
+		console.log(stock.storage_amount)
+		console.log(request.input('amount'))
+		const amount = request.input('amount')
+		stock.storage_amount = stock.storage_amount-parseInt(amount)
+		console.log(stock.storage_amount)
 		//cel stock apakah amount cukup
-		validation = yield Validator.validation(stock,Stock.rules)
+		validation = yield Validator.validate(stock,Stock.rules)
+
 		if (validation.fails()){
 			yield request
 				.withOnly('stock_id','medicine_id','amount') 
@@ -53,13 +57,17 @@ class IngredientController {
 		}
 		const ingredient = new Ingredient()
 		ingredient.stock_id = ingredientData.stock_id
-		ingredient.medicine_id = ingredientData.medicine_id
+		ingredient.medicine_id = medicineId
 		ingredient.amount = ingredientData.amount
-		ingredient.price = (ingredientData.amount * stock.price)
+		ingredient.price = (ingredientData.amount*stock.price)
+		console.log(ingredient.price)
 
 		yield stock.save()
 		yield ingredient.save()
-		yield response.sendView('medicine/'+medicineId+'/create', {successMessage: 'Created Ingredient Successfully'})
+		const medicine = yield Medicine.findBy('id',medicineId)
+		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
+		const stocks = yield Stock.all()
+		yield response.redirect('ingredient'+medicineId+'/create', {medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON(), successMessage: 'Created Ingredient Successfully'})
 	}
 
 	* show(request,response){

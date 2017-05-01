@@ -7,9 +7,7 @@ class Ingredient extends Lucid {
 	static get rules(){
 		return {
 			stock_id: 'required|above:0',
-			amount: 'required|above:0',
-			price: 'required|above:0',
-			medicine_id: 'required|above:0'
+			amount: 'required|above:0'
 		}
 	}
 
