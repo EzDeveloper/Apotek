@@ -15,6 +15,7 @@ class IngredientController {
 	* create(request, response){
 		const medicine = yield Medicine.findBy('id',request.param('id'))
 		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
+		const ingredients = yield Ingredient.query().where('medicine_id',request.param('id'))
 		const stocks = yield Stock.all()
 		console.log(ingredients)
 		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON()})
@@ -52,7 +53,7 @@ class IngredientController {
 				.withOnly('stock_id','medicine_id','amount') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('/medicine/'+medicineId+'/create')
+			response.redirect('/medicine/'+medicineId+'/ingredient')
 			return
 		}
 		const ingredient = new Ingredient()
@@ -67,7 +68,7 @@ class IngredientController {
 		const medicine = yield Medicine.findBy('id',medicineId)
 		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
 		const stocks = yield Stock.all()
-		yield response.redirect('ingredient'+medicineId+'/create', {medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON(), successMessage: 'Created Ingredient Successfully'})
+		yield response.redirect('/medicine/'+medicineId+'/ingredient')
 	}
 
 	* show(request,response){
