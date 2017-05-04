@@ -1,0 +1,135 @@
+{% extends 'base' %}
+
+{% block navBarRole%}
+    <div class="navbar-brand" >
+        Cashier
+    </div>
+{% endblock %}
+
+{% block navSideBarList%}
+    <li>
+        {{ linkToAction('CustomerController.index', '<i class="fa fa-fw fa-table"></i> Customer Data') }} 
+    </li>
+    <li>
+        {{ linkToAction('TransactionController.index', '<i class="fa fa-fw fa-edit"></i> Create Transaction') }} 
+    </li>
+    <li class="active">
+        {{ linkToAction('TransactionController.list', '<i class="fa fa-fw fa-edit"></i> New Transaction') }} 
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class = "col-lg-12">
+        {% if successMessage %}
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="Close">&times;</a>
+                <strong>Success!</strong> {{successMessage}}.
+            </div>
+        {% endif %}
+
+        {% if old('errors') %}
+            <div class="alert alert-danger alert-dismissable">
+                {% for error in old('errors') %}
+                    <a href="#" class="close" data-dismiss="alert" aria-label="Close">&times;</a>
+                    <li> {{ error.message }} </li>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-12">
+
+        <div class="panel panel-default" style="position:relative">
+
+            <div class="panel-heading">
+                <h3 class="panel-title">Transaction</h3>
+            </div>
+
+            <div class="panel-body">                                   
+                 
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 style control-label">Customer Name</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static"> {{transaction[0].customer.name}} </p>
+                        </div>
+                        <label class="col-sm-2 style control-label">Cashier Name</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static"> {{transaction[0].user.name}} </p>
+                        </div>
+                        <label class="col-sm-2 style control-label">Total Price</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static"> {{transaction[0].total_price}} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="position:relative;">
+            <div class="form-group" style="width:55%; margin-right:2%; position:absolute; left:0">
+                 <div class="panel panel-default"> 
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Add Medicine</h3>
+                    </div>
+
+                    <div class="panel-body">                                   
+                            {{ form.open({action: 'TransactionController.add', params: {id:transaction[0].id} }) }}
+
+                                {{csrfField}}
+
+                                 <div class = "col-lg-12">
+
+                                <div class="form-group "> 
+                                    {{form.label('','Medicine') }}
+                                    <div>
+                                        <select name="medicine_id" class="form-control">
+                                            {% for medicine in medicines %}
+                                                <option value={{ medicine.id }}>{{ medicine.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> 
+
+                                {{ form.submit('Add','submit', { class: 'btn btn-success', style: 'margin-top: 20px'}) }}
+
+                            </div>    
+
+                            {{ form.close() }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="width:42.5%; position:absolute; margin-right:1% ;right:0">
+                 <div class="panel panel-default"> 
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Current Medicines</h3>
+                    </div>
+
+                    <div class="panel-body">                                   
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for med in cur_medicines  %}
+                                        <tr>
+                                            <td>{{med.name}}</td>
+                                            <td>Rp. {{med.price}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

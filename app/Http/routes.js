@@ -52,19 +52,20 @@ Route.get('/medicine/stock','StockController.showPharmacistStock')
 
 //Customer
 Route.resource('customer','CustomerController')
-Route.get('/customer/:id/detail','CustomerController.detail')
+//Route.get('/customer/:id/detail','CustomerController.detail')
 
 
 //Transaction
 Route.get('/transaction','TransactionController.index')
-Route.get('/transaction/list/:id','TransactionController.show')
+Route.get('/transaction/detail/:id','TransactionController.show')
 Route.get('/transaction/list','TransactionController.list')
 Route.get('/transaction/list/create','TransactionController.create')
-Route.post('/transaction/list','TransactionController.store')
+Route.post('/transaction/list/create','TransactionController.store')
 Route.get('/transaction/list/:id','TransactionController.view')
-Route.put('/transaction/list/:id/:medicine_id','TransactionController.add')
-Route.post('/transaction/pay/:id','TransactionController.pay')
-Route.put('/transaction/list/:id','TransactionController.cancel')
+
+Route.put('/transaction/:id','TransactionController.add')
+
+Route.post('/transaction/list/:id','TransactionController.pay')
 
 //Admin VIEW Sales
 Route.get('/sales','TransactionController.sales')

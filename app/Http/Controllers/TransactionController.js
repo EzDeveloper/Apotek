@@ -10,8 +10,8 @@ class TransactionController {
 	
 	//Melihat semua transaksi
 	* index(request, response) {
-		const transaction = yield Transaction.query().with('user','customer').orderBy('created_at','desc').fetch()
-		yield response.sendView('transaction/index',{transaction:transaction.toJSON()})
+		const transactions = yield Transaction.query().with('user','customer').orderBy('created_at','desc').fetch()
+		yield response.sendView('transaction/index',{transactions:transactions.toJSON()})
 	}
 
 	
@@ -23,6 +23,7 @@ class TransactionController {
 	
 
 	//form transaksi baru
+
 	* create(request, response) {
 		const role = yield Role.findBy('name', 'Cashier')
 		const users = yield User.query().where('role_id',role.id).fetch()
@@ -55,25 +56,31 @@ class TransactionController {
 	
 	// View  transaction with availlable medicine to add
 	* view(request, response){
-		const transaction = yield Transaction.query().where('id',request.param('id'))
+		const transaction = yield Transaction.query().where('id',request.param('id')).with('customer','user').fetch()
 		const medicines = yield Medicine.query().where('status',1).whereNull('transaction_id').fetch()
-		yield response.sendView('/transaction/view', {transactions:transactions.toJSON(), medicines:medicines.toJSON()})
+		const cur_medicines = yield Medicine.query().where('transaction_id',request.param('id')).fetch();
+		yield response.sendView('transaction/view', {transaction:transaction.toJSON(), medicines:medicines.toJSON(), cur_medicines:cur_medicines.toJSON()})
 	}
 
 
 	//add medecine to the Transaction
 	* add(request, response) {
-		const transaction = yield Transaction.findBy('id', request.param('id'))
+		const transaction = yield Transaction.findBy('id',request.param('id'))
+		console.log(request.param('id'))
+		console.log(transaction.toJSON())
 		const customer = yield Customer.findBy('id',transaction.customer_id)
-		const medicine = yield Medicine.findBy('id', request.param('medicine_id'))
+		console.log(customer.toJSON())
+		const medicine = yield Medicine.findBy('id', request.input('medicine_id'))
+		console.log(medicine.toJSON())
 		if (customer.kis==1){
 			transaction.total_price += (medicine.price*0.5)
 		} else {
 			transaction.total_price += medicine.price
 		}
 		medicine.transaction_id = request.param('id')
-		medicine.save()
-		transaction.save()
+		yield transaction.save()
+		yield medicine.save()
+		
 		yield response.redirect('/transaction/list/'+request.param('id'))
 	}
 
@@ -82,17 +89,10 @@ class TransactionController {
 	* pay(request, response) {
 		const transaction = yield Transaction.findBy('id', request.param('id'))
 		transaction.status = 1;
-		transaction.save()
-		yield response.redirect('/transaction/lists')
-	}
-
-	//cancel transaction
-	* cancel(request, response) {
-		const transaction = yield Transaction.findBy('id', request.param('id'))
-		transaction.status = -1
-		transaction.save()
+		yield transaction.save()
 		yield response.redirect('/transaction/list')
 	}
+
 
 	//custom search
 	* custom(request, response){
@@ -105,7 +105,7 @@ class TransactionController {
 	//Admin view sale
 	* sales(request, response) {
 		const transactions = yield Transaction.query().where('status',1).fetch()
-		yield response.sendView('transaction/sale', {transaction:transaction.toJSON()})
+		yield response.sendView('transaction/sale', {transaction:transactions.toJSON()})
 	}
 
 	//Sales Detail
