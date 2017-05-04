@@ -1,6 +1,8 @@
 'use strict'
 
 const Customer = use('App/Model/Customer')
+const Transaction = use('App/Model/Transaction')
+const Medicine = use('App/Model/Medicine')
 const Validator = use('Validator')
 
 class CustomerController {
@@ -78,6 +80,20 @@ class CustomerController {
 		const customer = yield Customer.findBy('id',request.param('id'))
 		yield customer.delete()
 		yield response.redirect('/customer')
+	}
+
+
+	* all(request, response) {
+		const customers = yield Customer.all()
+		yield response.sendView('/customer/all', customer:customer.toJSON())
+	}
+
+	//new customer medicines
+	* detail(request, response){
+		const customer = yield Customer.findBy('id', request.param('id'))
+		const transactions = yield Transaction.findBy('customer_id',customer.id)
+		const medicines = yield transactions.medicine().fetch()
+		yield response.sendView('/customer/detail',{medicines:medicines.toJSON()})
 	}
 
 }
