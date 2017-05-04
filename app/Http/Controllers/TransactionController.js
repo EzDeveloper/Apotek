@@ -47,8 +47,8 @@ class TransactionController {
 
 	//Display all new Transaction
 	* list(request, response) {
-		//const transactions = yield Transaction.query().where('status',0).with('customer','user').fetch()
-		//yield response.sendView('/transaction/new', {transactions:transactions.toJSON()})
+		const transactions = yield Transaction.query().where('status',0).with('customer','user').fetch()
+		yield response.sendView('/transaction/new', {transactions:transactions.toJSON()})
 		console.log("asdasdas")
 	}
 
@@ -105,7 +105,7 @@ class TransactionController {
 	//Admin view sale
 	* sales(request, response) {
 		const transactions = yield Transaction.query().where('status',1).fetch()
-		yield response.sendView('transaction/sale', {transaction:transaction.toJSON()})
+		yield response.sendView('transaction/sale', {transaction:transactions.toJSON()})
 	}
 
 	//Sales Detail

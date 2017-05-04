@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block navSideBarList%}
-    <li>
+    <li >
        {{ linkToAction('UserController.index', '<i class="fa fa-fw fa-group"></i> User') }} 
     </li>
     <li>
@@ -17,7 +17,7 @@
         {{ linkToAction('StockController.index', '<i class="fa fa-fw fa-file"></i> Medicine Stock') }} 
     </li>
     <li>
-        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-medkit"></i> Sales Report') }} 
+        {{ linkToAction('TransactionController.sales', '<i class="fa fa-fw fa-medkit"></i> Sales Report') }} 
     </li>
 {% endblock %}
 
