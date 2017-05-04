@@ -14,13 +14,11 @@ class IngredientController {
 
 	* create(request, response){
 		const medicine = yield Medicine.findBy('id',request.param('id'))
-		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
-		console.log(ingredients.toJSON())
-		const addedIngredients = yield Ingredient.query().where('medicine_id',request.param('id')).with('stock').fetch()
-		//console.log(addedIngredients.toJSON())
+		//const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
+		const ingredients = yield Ingredient.query().where('medicine_id',request.param('id')).with('stock').fetch()
 		const stocks = yield Stock.all()
-		console.log(ingredients)
-		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON(), addedIngredients:addedIngredients.toJSON() })
+		console.log(ingredients.toJSON())
+		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON()})
 	}
 
 	* store(request, response){
@@ -77,6 +75,7 @@ class IngredientController {
 
 	* show(request,response){
 		const ingredient = yield Ingredient.query().where('id',request.param('id')).with('stock','medicine').fetch()
+		console.log(ingredient.toJSON())
 		//const user = yield User.query().where('id',request.param('id')).with('role').fetch()
 		yield response.sendView('ingredient/show',{ingredient:ingredient.toJSON()})
 	}
@@ -118,11 +117,12 @@ class IngredientController {
 	*/
 
 	* destroy(request,response){
-		const ingredient = yield Ingredient.findBy('id',request.param('ingredient_id'))
+		const ingredient = yield Ingredient.findBy('id',request.param('id')).with('medicine')
+		console.log(ingredient.toJSON())
 		const stock = yield Stock.findBy('id',ingredient.stock_id)
 		stock.storage_amount = (stock.storage_amount + ingredient.amount)
 		yield ingredient.delete()
-		yield response.redirect('/medicine/'+request.param('id'))
+		yield response.redirect('/ingredient')
 	}
 }
 

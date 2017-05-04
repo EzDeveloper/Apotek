@@ -43,13 +43,7 @@
                         <div class="form-group">
                             <label for="inputPassword" class="col-sm-2 control-label">Amount</label>
                             <div class="col-sm-10">
-                                <p class="form-control-static">{{useingredientr[0].amount}}</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Name</label>
-                            <div class="col-sm-10">
-                                <p class="form-control-static">{{ingredient[0].name}}</p>
+                                <p class="form-control-static">{{ingredient[0].amount}}</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -65,7 +59,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword" class="col-sm-2 control-label">Medicine Code</label>
+                            <label for="inputPassword" class="col-sm-2 control-label">Used in Medicine</label>
                             <div class="col-sm-10">
                                 <p class="form-control-static">{{ingredient[0].medicine.name}}</p>
                             </div>
@@ -77,7 +71,7 @@
 
         </div>
 
-        {{ form.open({ action: 'IngredientController.destroy', params:{ id:ingredient[0].id } }) }}
+        {{ form.open({ actions: 'IngredientController.destroy', params: { id: ingredient[0].id } }) }}
             {{csrfField}}
             {{ form.button('Delete','', { class: 'btn btn-danger ',style:'margin-left:20px' }) }} 
         {{ form.close() }}
