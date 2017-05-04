@@ -14,11 +14,13 @@ class TransactionController {
 		yield response.sendView('transaction/index',{transaction:transaction.toJSON()})
 	}
 
+	
 	* show(request, response) {
 		const transaction = yield Transaction.query().where('id',request.param('id')).with('user','cashier').fetch()
 		const medicines = yield Medicine.findBy('id', transaction.id)
 		yield response.sendView('transaction/show', {transaction:transaction.toJSON(), medicines:medicines.toJSON()})
 	}
+	
 
 	//form transaksi baru
 	* create(request, response) {
@@ -39,20 +41,18 @@ class TransactionController {
 		transaction.status = 0;
 		transaction.total_price = 0;
 	    yield transaction.save()
-	    console.log("asd")
 	    yield response.redirect('/transaction/list')
-	    console.log("22")
+
 	}
 
 
 	//Display all new Transaction
 	* list(request, response) {
-		//const transactions = yield Transaction.query().where('status',0).with('customer','user').fetch()
-		//yield response.sendView('/transaction/new', {transactions:transactions.toJSON()})
-		console.log("asdasdas")
+		const transactions = yield Transaction.query().where('status',0).with('customer','user').fetch()
+		yield response.sendView('transaction/list', {transactions:transactions.toJSON()})
 	}
 
-
+	
 	// View  transaction with availlable medicine to add
 	* view(request, response){
 		const transaction = yield Transaction.query().where('id',request.param('id'))
@@ -114,6 +114,7 @@ class TransactionController {
 		const medicines = yield Medicine.findBy('transaction_id', transaction.id)
 		yield response.sendView('transaction/detail', {transaction:transaction.toJSON(), medicines:medicines.toJSON()})
 	}
+	
 }
 
 module.exports = TransactionController
