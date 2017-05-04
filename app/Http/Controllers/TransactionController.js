@@ -10,7 +10,7 @@ class TransactionController {
 	
 	//Melihat semua transaksi
 	* index(request, response) {
-		const transaction = yield Transaction.query().with('user').orderBy('created_at',desc).fetch()
+		const transaction = yield Transaction.query().with('user','customer').orderBy('created_at',desc).fetch()
 		yield response.sendView('transaction/index',{transaction:transaction.toJSON()})
 	}
 

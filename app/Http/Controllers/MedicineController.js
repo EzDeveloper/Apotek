@@ -43,7 +43,7 @@ class MedicineController {
 				.withOnly('name','user_id') 
 				.andWith({ errors:validation.messages()})
 				.flash()
-			response.redirect('medicine/create')
+			response.redirect('/medicine')
 			return
 		}
 		const medicine = new Medicine()
@@ -52,7 +52,7 @@ class MedicineController {
 		medicine.status = 0;
 		medicine.user_id = medicineData.user_id
 		yield medicine.save()
-		yield response.sendView('medicine/create', {successMessage: 'Created Medicine Successfully'})
+		yield response.redirect('/medicine')
 	}
 
 	* show(request, response) {

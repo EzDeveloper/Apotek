@@ -32,7 +32,7 @@ class UserController {
     userData.birth_date = moment(userData.birth_date).format("YYYY-MM-DD")
     //console.log(userData.birth_date)
     yield User.create(userData)
-    yield response.sendView('user/create', {successMessage: 'Created User Successfully'})
+    yield response.redirect('/user')
 
   }
 
