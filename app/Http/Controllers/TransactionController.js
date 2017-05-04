@@ -2,15 +2,15 @@
 
 const Transaction = use('App/Model/Transaction')
 const User = use('App/Model/User')
-const customer = use('App/Model/Customer')
+const Customer = use('App/Model/Customer')
 const Role = use('App/Model/Role')
-const Medicine = use('App/Model/')
+const Medicine = use('App/Model/Medicine')
 
 class TransactionController {
 	
 	//Melihat semua transaksi
 	* index(request, response) {
-		const transaction = yield Transaction.query().with('user').orderBy('created_at',desc).fetch()
+		const transaction = yield Transaction.query().with('user').orderBy('created_at','desc').fetch()
 		yield response.sendView('transaction/index',{transaction:transaction.toJSON()})
 	}
 
@@ -24,7 +24,7 @@ class TransactionController {
 	* create(request, response) {
 		const role = yield Role.findBy('name', 'Cashier')
 		const user = yield User.findBy('role_id',role.id)
-		const customer = yield Customer.All()
+		const customer = yield Customer.all()
 		yield response.sendView('transaction/create', {user:user.toJSON(), customer:customer.toJSON()})
 	}
 

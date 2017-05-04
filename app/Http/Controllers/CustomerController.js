@@ -85,7 +85,7 @@ class CustomerController {
 
 	* all(request, response) {
 		const customers = yield Customer.all()
-		yield response.sendView('/customer/all', customer:customer.toJSON())
+		yield response.sendView('/customer/all', {customer:customers.toJSON()})
 	}
 
 	//new customer medicines

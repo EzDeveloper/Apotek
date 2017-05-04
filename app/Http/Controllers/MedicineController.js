@@ -52,7 +52,7 @@ class MedicineController {
 		medicine.status = 0;
 		medicine.user_id = medicineData.user_id
 		yield medicine.save()
-		yield response.sendView('medicine/create', {successMessage: 'Created Medicine Successfully'})
+		yield response.redirect('medicine/create', {successMessage: 'Created Medicine Successfully'})
 	}
 
 	* show(request, response) {

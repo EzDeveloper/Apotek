@@ -7,10 +7,10 @@
 {% endblock %}
 
 {% block navSideBarList%}
-    <li class="active">
+    <li>
         {{ linkToAction('CustomerController.index', '<i class="fa fa-fw fa-table"></i> Customer Data') }} 
     </li>
-    <li>
+    <li class="active">
         {{ linkToAction('TransactionController.index', '<i class="fa fa-fw fa-edit"></i> Create Transaction') }} 
     </li>
 {% endblock %}
@@ -19,12 +19,12 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Customers</h3>
+                <h3 class="panel-title">Storage</h3>
             </div>
 
             <div class="panel-body">                                   
                  <div class="col-lg-12">
-                    {{ form.open({action: 'CustomerController.create'}) }}
+                    {{ form.open({action: 'TransactionController.create'}) }}
                         {{ form.button('Create','', { class: 'btn btn-success', style: 'margin-bottom: 20px'}) }}
                     {{ form.close() }}
 
@@ -33,28 +33,22 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Birth Date</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Kis</th>
+                                    <th>Customer ID</th>
+                                    <th>User ID</th>
+                                    <th>Total Price</th>
+                                    <th>Status</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {%for customer in customers %}
-                                    <tr>
-                                        <td>{{customer.id}}</td>
-                                        <td>{{customer.name}}</td>
-                                        <td>{{customer.birth_date}}</td>
-                                        <td>{{customer.address}}</td>
-                                        <td>{{customer.phone}}</td>
-                                        {% if customer.kis == 1 %}
-                                            <td>Yes</td>
-                                        {% else %}
-                                            <td>No</td>
-                                        {% endif %}
-                                        <td><a href="customer/{{customer.id}}">View</a></td>
+                                {%for transaction in transactions %}
+                                    <tr style="height:45px">
+                                        <td>{{transaction.id}}</td>
+                                        <td>{{transaction.customer_id}}</td>
+                                        <td>{{transaction.user_id}}</td>
+                                        <td>{{transaction.total_price}}</td>
+                                        <td>{{transaction.status}}</td>
+                                        <td><a href="transaction/{{transaction.id}}">View</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
