@@ -16,6 +16,10 @@ class Transaction extends Lucid {
   	customer() {
   		return this.belongsTo('App/Model/customer')
   	}
+
+  	user() {
+  		return this.belongsTo('App/Model/User')
+  	}
 }
 
 module.exports = Transaction

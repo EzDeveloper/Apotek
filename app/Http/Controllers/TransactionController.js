@@ -10,7 +10,7 @@ class TransactionController {
 	
 	//Melihat semua transaksi
 	* index(request, response) {
-		const transaction = yield Transaction.query().with('user','customer').orderBy('created_at',desc).fetch()
+		const transaction = yield Transaction.query().with('user','customer').orderBy('created_at','desc').fetch()
 		yield response.sendView('transaction/index',{transaction:transaction.toJSON()})
 	}
 
@@ -23,28 +23,33 @@ class TransactionController {
 	//form transaksi baru
 	* create(request, response) {
 		const role = yield Role.findBy('name', 'Cashier')
-		const user = yield User.findBy('role_id',role.id)
-		const customer = yield Customer.all()
-		yield response.sendView('transaction/create', {user:user.toJSON(), customer:customer.toJSON()})
+		const users = yield User.query().where('role_id',role.id).fetch()
+		const customers = yield Customer.all()
+		yield response.sendView('transaction/create', {users:users.toJSON(), customers:customers.toJSON()})
 	}
 
 
 	//membuat transaksi baru
 	* store(request, response) {
 		const transaction = new Transaction()
+		console.log(request.input('customer_id'))
+		console.log(request.input('user_id'))
 		transaction.customer_id = request.input('customer_id')
 		transaction.user_id = request.input('user_id')
 		transaction.status = 0;
 		transaction.total_price = 0;
 	    yield transaction.save()
-	    yield response.redirect('/transaction/new')
+	    console.log("asd")
+	    yield response.redirect('/transaction/list')
+	    console.log("22")
 	}
 
 
 	//Display all new Transaction
-	* new(request, response) {
-		const transactions = yield Transaction.query().where('status',0).with('customer','user').fetch()
-		yield response.sendView('/transaction/new', {transactions:transactions.toJSON(), medicines:medicines.toJSON()})
+	* list(request, response) {
+		//const transactions = yield Transaction.query().where('status',0).with('customer','user').fetch()
+		//yield response.sendView('/transaction/new', {transactions:transactions.toJSON()})
+		console.log("asdasdas")
 	}
 
 
@@ -69,7 +74,7 @@ class TransactionController {
 		medicine.transaction_id = request.param('id')
 		medicine.save()
 		transaction.save()
-		yield response.redirect('/transaction/new/'+request.param('id'))
+		yield response.redirect('/transaction/list/'+request.param('id'))
 	}
 
 
@@ -78,7 +83,7 @@ class TransactionController {
 		const transaction = yield Transaction.findBy('id', request.param('id'))
 		transaction.status = 1;
 		transaction.save()
-		yield response.redirect('/transaction/new')
+		yield response.redirect('/transaction/lists')
 	}
 
 	//cancel transaction
@@ -86,7 +91,7 @@ class TransactionController {
 		const transaction = yield Transaction.findBy('id', request.param('id'))
 		transaction.status = -1
 		transaction.save()
-		yield response.redirect('/transaction/new')
+		yield response.redirect('/transaction/list')
 	}
 
 	//custom search
