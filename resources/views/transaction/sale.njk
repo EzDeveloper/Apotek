@@ -35,25 +35,27 @@
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Birth Date</th>
-                                    <th>Phone</th>
-                                    <th>E-mail</th>
-                                    <th>Role</th>
+                                    <th>Transaction ID</th>
+                                    <th>Cashier</th>
+                                    <th>Customer</th>
+                                    <th>Price</th>
                                     <th>View</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {%for user in users %}
+                                {%for transaction in transactions %}
                                     <tr>
-                                        <td>{{user.id}}</td>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.birth_date}}</td>
-                                        <td>{{user.phone}}</td>
-                                        <td>{{user.email}}</td>
-                                        <td>{{user.role.name}}</td>
-                                        <td><a href="user/{{user.id}}">View</a></td>
+                                        <td>{{transaction.id}}</td>
+                                        <td>{{transaction.user.name}}</td>
+                                        <td>{{transaction.customer.name}}</td>
+                                        <td>{{transaction.total_price}}</td>
+                                        <td>
+                                            {{ form.open({ action: 'TransactionController.detail', params: {id:transaction.id} }) }}
+                                                {{csrfField}}
+                                                <input type="hidden" name ="id" value={{transaction.id}} />
+                                                {{ form.button('View','', { class: 'btn btn-success btn-xs'}) }}
+                                            {{ form.close() }}
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

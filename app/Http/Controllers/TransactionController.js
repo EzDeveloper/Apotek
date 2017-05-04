@@ -14,10 +14,9 @@ class TransactionController {
 		yield response.sendView('transaction/index',{transactions:transactions.toJSON()})
 	}
 
-	
 	* show(request, response) {
-		const transaction = yield Transaction.query().where('id',request.param('id')).with('user','cashier').fetch()
-		const medicines = yield Medicine.findBy('id', transaction.id)
+		const transaction = yield Transaction.query().where('id',request.param('id')).with('user','customer').fetch()
+		const medicines = yield Medicine.query().where('id', request.param('id')).fetch()
 		yield response.sendView('transaction/show', {transaction:transaction.toJSON(), medicines:medicines.toJSON()})
 	}
 	
@@ -35,8 +34,7 @@ class TransactionController {
 	//membuat transaksi baru
 	* store(request, response) {
 		const transaction = new Transaction()
-		console.log(request.input('customer_id'))
-		console.log(request.input('user_id'))
+
 		transaction.customer_id = request.input('customer_id')
 		transaction.user_id = request.input('user_id')
 		transaction.status = 0;
@@ -66,10 +64,9 @@ class TransactionController {
 	//add medecine to the Transaction
 	* add(request, response) {
 		const transaction = yield Transaction.findBy('id',request.param('id'))
-		console.log(request.param('id'))
-		console.log(transaction.toJSON())
+
 		const customer = yield Customer.findBy('id',transaction.customer_id)
-		console.log(customer.toJSON())
+
 		const medicine = yield Medicine.findBy('id', request.input('medicine_id'))
 		console.log(medicine.toJSON())
 		if (customer.kis==1){
@@ -104,14 +101,15 @@ class TransactionController {
 
 	//Admin view sale
 	* sales(request, response) {
-		const transactions = yield Transaction.query().where('status',1).fetch()
-		yield response.sendView('transaction/sale', {transaction:transactions.toJSON()})
+		const transactions = yield Transaction.query().where('status',1).with('user','customer').fetch()
+		yield response.sendView('transaction/sale', {transactions:transactions.toJSON()})
 	}
 
 	//Sales Detail
 	* detail(request, response) {
+		console.log(request.param('id'))
 		const transaction = yield Transaction.query().where('id', request.param('id')).with('customer','user').fetch()
-		const medicines = yield Medicine.findBy('transaction_id', transaction.id)
+		const medicines = yield Medicine.query().where('transaction_id', request.param('id')).fetch()
 		yield response.sendView('transaction/detail', {transaction:transaction.toJSON(), medicines:medicines.toJSON()})
 	}
 	

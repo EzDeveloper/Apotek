@@ -49,7 +49,11 @@ class User extends Lucid {
   }
 
   medicine () {
-    return this.hasMany('App/Model/medicine')
+    return this.hasMany('App/Model/Medicine')
+  }
+
+  transaction() {
+    return this.hasMany('App/Model/Transaction')
   }
 
 }

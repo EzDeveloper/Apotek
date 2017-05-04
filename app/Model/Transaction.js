@@ -9,7 +9,7 @@ class Transaction extends Lucid {
 
 	}
 	
-	medicine () {
+	  medicine () {
     	return this.hasMany('App/Model/medicine')
   	}
 
@@ -20,6 +20,7 @@ class Transaction extends Lucid {
   	user() {
   		return this.belongsTo('App/Model/User')
   	}
+
 }
 
 module.exports = Transaction

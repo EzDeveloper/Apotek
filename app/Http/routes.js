@@ -69,7 +69,7 @@ Route.post('/transaction/list/:id','TransactionController.pay')
 
 //Admin VIEW Sales
 Route.get('/sales','TransactionController.sales')
-Route.get('/sales/:id','TransactionController.detail')
+Route.get('/detail/:id','TransactionController.detail')
 
 
 
