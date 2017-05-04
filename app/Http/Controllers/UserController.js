@@ -20,7 +20,6 @@ class UserController {
 
   * store(request, response){
     const userData = request.except('_csrf','submit')
-    console.log(userData)
     const validation = yield Validator.validate(userData, User.rules)
     if (validation.fails()){
       yield request
@@ -31,7 +30,7 @@ class UserController {
       return
     }
     userData.birth_date = moment(userData.birth_date).format("YYYY-MM-DD")
-    console.log(userData.birth_date)
+    //console.log(userData.birth_date)
     yield User.create(userData)
     yield response.sendView('user/create', {successMessage: 'Created User Successfully'})
 
@@ -43,8 +42,8 @@ class UserController {
 
     user.birth_date = moment(user.birth_date).format("YYYY-MM-DD")
     
-    console.log(user.birth_date)
-    yield response.sendView('user/show', {user:user.toJSON()})
+    //console.log(user.toJSON())
+    yield response.sendView('user/show', {user:user.toJSON(), moment:moment})
   }
 
   * edit(request,response){

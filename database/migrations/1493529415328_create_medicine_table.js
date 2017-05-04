@@ -10,6 +10,7 @@ class MedicinesTableSchema extends Schema {
       table.timestamps()
       table.integer('user_id').notNullable().unsigned().references('id').inTable('users')
       table.string('name',100).notNullable()
+      table.integer('status').notNullable()
       table.integer('price').notNullable()
       table.integer('transaction_id').unsigned().references('id').inTable('transactions')
     })

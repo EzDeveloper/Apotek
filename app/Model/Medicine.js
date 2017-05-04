@@ -18,6 +18,10 @@ class Medicine extends Lucid {
 	ingredient() {
 		return this.hasMany('App/Model/ingredient')
 	}
+
+	user() {
+		return this.belongsTo('App/Model/User')
+	}
 	
 }
 

@@ -17,7 +17,6 @@ class IngredientController {
 		//const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
 		const ingredients = yield Ingredient.query().where('medicine_id',request.param('id')).with('stock').fetch()
 		const stocks = yield Stock.all()
-		console.log(ingredients.toJSON())
 		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON()})
 	}
 
@@ -39,12 +38,8 @@ class IngredientController {
 		}
 		//cari stock sesuai stock_id di ingredient & rubah storage_amount
 		const stock = yield Stock.findBy('id',ingredientData.stock_id)
-		console.log(stock)
-		console.log(stock.storage_amount)
-		console.log(request.input('amount'))
 		const amount = request.input('amount')
 		stock.storage_amount = stock.storage_amount-parseInt(amount)
-		console.log(stock.storage_amount)
 		//cel stock apakah amount cukup
 		validation = yield Validator.validate(stock,Stock.rules)
 
@@ -61,7 +56,6 @@ class IngredientController {
 		ingredient.medicine_id = medicineId
 		ingredient.amount = ingredientData.amount
 		ingredient.price = (ingredientData.amount*stock.price)
-		console.log(ingredient.price)
 
 		yield stock.save()
 		yield ingredient.save()
@@ -75,7 +69,6 @@ class IngredientController {
 
 	* show(request,response){
 		const ingredient = yield Ingredient.query().where('id',request.param('id')).with('stock','medicine').fetch()
-		console.log(ingredient.toJSON())
 		//const user = yield User.query().where('id',request.param('id')).with('role').fetch()
 		yield response.sendView('ingredient/show',{ingredient:ingredient.toJSON()})
 	}
@@ -116,6 +109,7 @@ class IngredientController {
 	}
 	*/
 
+	/*
 	* destroy(request,response){
 		const ingredient = yield Ingredient.findBy('id',request.param('id')).with('medicine')
 		console.log(ingredient.toJSON())
@@ -124,6 +118,7 @@ class IngredientController {
 		yield ingredient.delete()
 		yield response.redirect('/ingredient')
 	}
+	*/
 }
 
 module.exports = IngredientController

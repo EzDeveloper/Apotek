@@ -48,6 +48,10 @@ class User extends Lucid {
     return this.belongsTo('App/Model/Role')
   }
 
+  medicine () {
+    return this.hasMany('App/Model/medicine')
+  }
+
 }
 
 module.exports = User

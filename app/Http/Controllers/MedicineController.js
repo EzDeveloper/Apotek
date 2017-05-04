@@ -10,7 +10,7 @@ const User = use('App/Model/User')
 class MedicineController {
 	
 	* newMedicine(request, response) {
-		const medicines = yield Medicine.query().whereNull('transaction_id').orderBy('created_at','desc').fetch()
+		const medicines = yield Medicine.query().where('status',0).with('user').orderBy('created_at','desc').fetch()
 		yield response.sendView('medicine/newMedicine',{medicines:medicines.toJSON()})
 	}
 
@@ -20,9 +20,19 @@ class MedicineController {
 	}
 
 	* create(request, response) {
-		const users = yield User.query().where('role_id',2).fetch()
-		console.log(users)
+		const role = yield Role.findBy('name','Pharmacist')
+		const users = yield User.query().with('role').where('role_id',role.id).fetch()
+		//console.log(users)
 		yield response.sendView('medicine/create', {users:users.toJSON()})
+	}
+
+	* ready(request, response) {
+		console.log(request.param('id'))
+		const medicine = yield Medicine.findBy('id', request.param('id'))
+		medicine.status = 1;
+		yield medicine.save();
+		console.log(medicine.toJSON())
+		yield response.redirect('/medicine')
 	}
 
 	* store(request, response) {
@@ -39,6 +49,7 @@ class MedicineController {
 		const medicine = new Medicine()
 		medicine.name = medicineData.name
 		medicine.price = 0
+		medicine.status = 0;
 		medicine.user_id = medicineData.user_id
 		yield medicine.save()
 		yield response.sendView('medicine/create', {successMessage: 'Created Medicine Successfully'})
@@ -51,9 +62,6 @@ class MedicineController {
 		yield response.sendView('medicine/detail',{medicine:medicine.toJSON(), ingredients:ingredients.toJSON()})
 	}
 
-	* destroy(request, response) {
-
-	}
 }
 
 module.exports = MedicineController
