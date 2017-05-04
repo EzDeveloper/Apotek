@@ -7,13 +7,20 @@
 {% endblock %}
 
 {% block navSideBarList%}
+    <li>
+        {{ linkToAction('StockController.showPharmacistStock', '<i class="fa fa-fw fa-file"></i> Stock') }} 
+    </li>
     <li class="active">
-        {{ linkToAction('StockController.index', '<i class="fa fa-fw fa-leaf"></i> Ingredient') }} 
+        {{ linkToAction('IngredientController.index', '<i class="fa fa-fw fa-leaf"></i> Ingredient') }} 
     </li>
     <li>
-        {{ linkToAction('RoleController.index', '<i class="fa fa-fw fa-medkit"></i> Sales Report') }} 
+        {{ linkToAction('MedicineController.newMedicine', '<i class="fa fa-fw fa-medkit"></i> Pending Medicine') }} 
+    </li>
+    <li >
+        {{ linkToAction('MedicineController.index', '<i class="fa fa-fw fa-table"></i> Medicine Report') }} 
     </li>
 {% endblock %}
+
 
 {% block content %}
     <div class="col-lg-12">

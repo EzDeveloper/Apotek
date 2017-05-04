@@ -11,11 +11,11 @@ class Ingredient extends Lucid {
 		}
 	}
 
-	Stock() {
+	stock() {
 		return this.belongsTo('App/Model/Stock')
 	}
 
-	Medicine() {
+	medicine() {
 		return this.belongsTo('App/Model/Medicine')
 	}
 }
