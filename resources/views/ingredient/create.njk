@@ -50,6 +50,10 @@
                         <div class="col-sm-10">
                             <p class="form-control-static">{{medicine.name}}</p>
                         </div>
+                        <label class="col-sm-2 style control-label">Medicine Price</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static">{{medicine.price}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,11 +77,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {%for ingredient in indgredients %}
+                                    {% if addedIngredients %}
+                                        <p>asdasd</p>
+                                    {% endif %}
+                                    {%for addedIngredient in addedIndgredients[0] %}
                                         <tr>
-                                            <td>{{ingredient.stock.name}}</td>
-                                            <td>{{ingredient.amount}}</td>
-                                            <td>{{ingredient.price}}</td>
+                                            <td>{{ addedIngredient.stock.name }}</td>
+                                            <td>{{ addedIngredient.amount }}</td>
+                                            <td>{{ addedIngredient.price }}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

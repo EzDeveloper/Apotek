@@ -45,12 +45,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {%for medicine in medicines %}
+                                {% for medicine in medicines %}
                                     <tr>
                                         <td>{{medicine.id}}</td>
                                         <td>{{medicine.name}}</td>
                                         <td>{{medicine.price}}</td>
-                                        <td><a href="medicine/{{medicine.id}}/ingredient/create">Add Ingredient</a></td>
+                                        <td><a href="/medicine/{{medicine.id}}/ingredient">Add Ingredient</a></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
