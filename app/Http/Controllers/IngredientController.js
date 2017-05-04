@@ -14,9 +14,10 @@ class IngredientController {
 
 	* create(request, response){
 		const medicine = yield Medicine.findBy('id',request.param('id'))
-		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
-		const ingredients = yield Ingredient.query().where('medicine_id',request.param('id'))
+		//const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
+		const ingredients = yield Ingredient.query().where('medicine_id',request.param('id')).with('Stock').fetch()
 		const stocks = yield Stock.all()
+		console.log(ingredients.toJSON())
 		yield response.sendView('ingredient/create',{ medicine:medicine.toJSON(), ingredients:ingredients.toJSON(), stocks:stocks.toJSON()})
 	}
 
@@ -65,6 +66,8 @@ class IngredientController {
 		yield stock.save()
 		yield ingredient.save()
 		const medicine = yield Medicine.findBy('id',medicineId)
+		medicine.price += ingredient.price
+		yield medicine.save()
 		const ingredients = yield Ingredient.query().whereNull('medicine_id').with('stock').fetch()
 		const stocks = yield Stock.all()
 		yield response.redirect('/medicine/'+medicineId+'/ingredient')
