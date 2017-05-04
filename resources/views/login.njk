@@ -82,11 +82,15 @@
 
   <div class="login">
     <header class="login-header"><span class="text">LOGIN</span><span class="loader"></span></header>
-    <form class="login-form">
-      <input class="login-input" type="text" placeholder="@email"/>
-      <input class="login-input" type="password" placeholder="Password"/>
-      <button class="login-btn" type="submit">login</button>
-    </form>
+    <div class="login-form">
+    {{ form.open({ action: 'AuthController.login' }) }}
+      {{ csrfField }}
+      <input class="login-input" type="text" name="email" placeholder="@email"/>
+      <input class="login-input" type="password" name="password" placeholder="Password"/>
+      {{ form.button('login','submit', { class: 'login-btn' }) }}
+      
+    {{ form.close() }}
+    </div>
   </div>
 </div>
 

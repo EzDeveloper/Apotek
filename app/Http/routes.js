@@ -17,10 +17,14 @@
 
 const Route = use('Route')
 
-Route.on('/').render('login')
+Route.on('/login').render('login')
+Route.post('/login','AuthController.login')
 
-Route.resource('user','UserController')
-Route.resource('role','RoleController')
+Route.group('auth-route', function() {
+	Route.resource('user','UserController')
+	Route.resource('role','RoleController')
+}).middleware('auth')
+
 
 Route.resource('stock','StockController');
 Route.get('/stock/:id/add','StockController.add')
